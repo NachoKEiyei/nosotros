@@ -145,8 +145,8 @@ function applyPref(){const r=document.documentElement,u=pref.bgImg||pref.bgUrl;i
  const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=getComputedStyle(r).getPropertyValue('--bg').trim()||'#fff5f7'}
 let tt;const toast=t=>{let e=$('#toast');if(!e){e=document.createElement('div');e.id='toast';document.body.appendChild(e)}e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>{e.style.display='none'},6000)};
 const er=e=>toast('No se pudo guardar'+(e&&(e.code||e.message)?' ('+(e.code||e.message)+')':''));
-const put=(n,o)=>{if(D)return D.collection(n).add(o).catch(er);data[n].push({id:U(),...o});render(1)};
-const upd=(n,id,o)=>{if(D)return D.doc(n+'/'+id).update(o).catch(er);Object.assign(data[n].find(x=>x.id==id)||{},o);render(1)};
+const put=(n,o)=>{if(D)return pack(o).then(x=>D.collection(n).add(x)).catch(er);data[n].push({id:U(),...o});render(1)};
+const upd=(n,id,o)=>{if(D)return pack(o).then(x=>D.doc(n+'/'+id).update(x)).catch(er);Object.assign(data[n].find(x=>x.id==id)||{},o);render(1)};
 const del=(n,id)=>{if(D)return D.doc(n+'/'+id).delete().catch(er);data[n]=data[n].filter(x=>x.id!=id);render(1)};
 function delCat(id){data.cats.filter(c=>c.parent==id).forEach(c=>delCat(c.id));data.items.filter(i=>i.cat==id).forEach(i=>del('items',i.id));del('cats',id)}
 const hd=(t,b)=>`<div class="top"><button class="bk" data-a="${b?'up:':'go:home'}" aria-label="Volver">${IC.back}</button><h1>${t}</h1></div>`;
@@ -161,7 +161,7 @@ let sm=null,pf=null,drag=0;IC.back='<svg viewBox="0 0 24 24" aria-hidden="true">
 const PF=id=>{const p=data.profiles.find(x=>x.id==id)||{};return{name:p.name||(id=='y'?'Él':'Ella'),photo:di(p.photo)?p.photo:''}};
 const av=(id,c='')=>{const p=PF(id);return p.photo?`<img class="av ${c}" src="${esc(p.photo)}" alt="">`:`<i class="av ${c}">${esc(p.name[0]||'?')}</i>`};
 const pk=()=>V+(V=='lists'?':'+(pf||'')+':'+(cat||''):'');
-function saveProf(id,o){const cur=data.profiles.find(x=>x.id==id)||{},n={...cur,...o};delete n.id;if(D)return D.doc('profiles/'+id).set(n).catch(er);const i=data.profiles.findIndex(x=>x.id==id);i<0?data.profiles.push({id,...n}):data.profiles[i]={id,...n};render(1)}
+function saveProf(id,o){const cur=data.profiles.find(x=>x.id==id)||{},n={...cur,...o};delete n.id;if(D)return pack(n).then(x=>D.doc('profiles/'+id).set(x)).catch(er);const i=data.profiles.findIndex(x=>x.id==id);i<0?data.profiles.push({id,...n}):data.profiles[i]={id,...n};render(1)}
 function pl(){return data.placed.filter(x=>x.k==pk()).map(x=>{const t=sk(x.s);return t&&di(t.src)?`<img class="ps${sm?' ed':''}${sm&&sm.pick==x.id?' pk':''}" data-p="${x.id}" src="${esc(t.src)}" alt="" style="left:${+x.x||0}%;top:${+x.y||0}px;width:${+x.w||84}px">`:''}).join('')}
 function trayV(){
  if(frame||(md&&!sm))return'';
@@ -320,7 +320,7 @@ async function saveSpot(){
  const c={emoji:o.emoji||'',name:o.name,type:o.type||'lugar',addr:o.addr||'',url:fixUrl(o.url),note:o.note||'',img:o.img||'',menuUrl:fixUrl(o.menuUrl)};
  if(sid=='new'){
   const full={...c,done:false,menu:[]};
-  if(D){const r=await D.collection('spots').add(full).catch(er);sid=r&&r.id?r.id:null}else{const id=U();data.spots.push({id,...full});sid=id}
+  if(D){const r=await pack(full).then(x=>D.collection('spots').add(x)).catch(er);sid=r&&r.id?r.id:null}else{const id=U();data.spots.push({id,...full});sid=id}
   if(sid){sd={...full}}else{V='places';sd=null}
  }else{await upd('spots',sid,c);sd={...sd,...c}}
  toast('Guardado ✓');render(1)}
@@ -497,8 +497,18 @@ const hv=h=>HV.includes(h)?h:h=='spot'&&sid?'spot':h=='roulette'&&rl?'roulette':
 let hsk=0;const syncHash=()=>{const h=V=='home'?'':V;if(location.hash.slice(1)!==h){hsk=1;location.hash=h}};
 addEventListener('hashchange',()=>{if(hsk){hsk=0;return}V=hv(location.hash.slice(1));if(V!='lists'){cat=null;pf=null}ed=null;ev=null;frame=null;md=null;sm=null;if(V!='vault')vt=null;render(1)});
 V=hv(location.hash.slice(1));applyPref();render(1);
+/* Imágenes: cada foto se guarda en su propio documento (colección "imgs") y el resto de los datos solo lleva una referencia "ref:ID". Se descargan una vez y quedan en el caché del teléfono. */
+const IMGK=['img','menuImg','photo','src'],imc={},idOf=new Map(),raw={},busy={};let rht=0;
+const setImg=(id,u)=>{imc[id]=u;idOf.set(u,id)};
+function hyd(o){const r={...o};for(const k of IMGK){const v=r[k];if(typeof v=='string'&&v.startsWith('ref:')){const id=v.slice(4);r[k]=imc[id]||'';if(!imc[id])loadImg(id)}}return r}
+async function loadImg(id){if(imc[id]||busy[id])return;busy[id]=1;let d=null;
+ try{d=await D.doc('imgs/'+id).get({source:'cache'})}catch(e){}
+ if(!d||!d.exists){try{d=await D.doc('imgs/'+id).get()}catch(e){busy[id]=0;return}}
+ if(d.exists&&d.data().d){setImg(id,d.data().d);clearTimeout(rht);rht=setTimeout(()=>{for(const n in raw)data[n]=raw[n].map(hyd);render()},80)}}
+async function pack(o){const r={...o};for(const k of IMGK){const v=r[k];if(typeof v=='string'&&v.startsWith('data:image/')){let id=idOf.get(v);if(!id){const ref=await D.collection('imgs').add({d:v});id=ref.id;setImg(id,v)}r[k]='ref:'+id}}return r}
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 const FBC={apiKey:"AIzaSyCWlMSeGcT3PHzmVFv7ltcOF3VV5lUOuKg",authDomain:"nuestro-rincon-7ffcc.firebaseapp.com",projectId:"nuestro-rincon-7ffcc",storageBucket:"nuestro-rincon-7ffcc.firebasestorage.app",messagingSenderId:"736123380069",appId:"1:736123380069:web:2e36c76d45ffcec187818c"};
-function startDB(){if(started)return;started=1;['cats','items','projects','soon','stickers','placed','profiles','spots','secrets','events','memories'].forEach(n=>D.collection(n).onSnapshot(s=>{data[n]=s.docs.map(d=>({id:d.id,...d.data()}));render()},e=>toast('Sin acceso a '+n+' ('+(e.code||'error')+')')))}
+function startDB(){if(started)return;started=1;['cats','items','projects','soon','stickers','placed','profiles','spots','secrets','events','memories'].forEach(n=>D.collection(n).onSnapshot(s=>{raw[n]=s.docs.map(d=>({id:d.id,...d.data()}));data[n]=raw[n].map(hyd);render()},e=>toast('Sin acceso a '+n+' ('+(e.code||'error')+')')))}
 (()=>{
  if(typeof firebase=='undefined'){render(1);return}
  try{firebase.initializeApp(FBC);D=firebase.firestore();D.enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(e){D=null;render(1);return}
