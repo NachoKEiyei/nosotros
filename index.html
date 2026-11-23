@@ -118,6 +118,7 @@ button.dc.td{border-color:var(--ac)}button.dc.sl{background:var(--ac);color:var(
 .mc img{width:100%;max-height:320px;object-fit:cover;border-radius:16px;margin:8px 0 0;display:block}
 </style></head><body>
 <div id="app"></div><div id="fr"></div><div id="md"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const $=s=>document.querySelector(s),U=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -136,7 +137,7 @@ const PIDX={
  'b-liked':{kw:'universo puerta recuerdos letras cifradas estrellas carta flor amarilla universo rojo',text:`Todo lo que me gusta de ti. Cargando nuestro amor. Toca el pequeño universo rosa. Tres instantes de nuestra historia, toca las estrellas azules. Para ti: hay personas que llegan y, sin darse cuenta, hacen que muchos de tus días sean mejores. Así eres tú para mí. Gracias por cada momento compartido, por las risas y por estar ahí incluso en lo simple. Que esta flor amarilla te recuerde, hoy y siempre, lo especial que eres. Leer tu carta. Una puerta para ti: necesitas encontrar las letras cifradas escondidas en los recuerdos, descifrar. La persona más especial para mí. La puerta lleva a otro universo, ¿entramos? Ir al nuevo universo. Volver al universo rojo. Nuestros recuerdos: gira para elegir una página. Viajando a nuestro siguiente universo.`}
 };
 const WHO={e:'💗 Ella',y:'💙 Él',a:'💞 Ambos'};
-let md=null,mm=null,vt=null,logoN=0,lt=0,D=null,V='home',cat=null,ed=null,frame=null,fext='',sid=null,sd=null,plf='todos',sid2=null,stab='todo',rtn=null,rl=null,cs=null,ev=null,fw='',q='',pend=0;
+let md=null,mm=null,vt=null,logoN=0,lt=0,AUTH=null,user=null,authReady=0,started=0,D=null,V='home',cat=null,ed=null,frame=null,fext='',sid=null,sd=null,plf='todos',sid2=null,stab='todo',rtn=null,rl=null,cs=null,ev=null,fw='',q='',pend=0;
 const data={cats:[],items:[],projects:[],soon:[],stickers:[],placed:[],profiles:[],spots:[],secrets:[],events:[],memories:[]};
 let pref={theme:matchMedia('(prefers-color-scheme:dark)').matches?'oscuro':'pastel',bg:'degradado',size:'normal',bgImg:'',bgUrl:''};
 try{Object.assign(pref,JSON.parse(localStorage.getItem('nos-pref')||'{}'))}catch(e){}
@@ -335,7 +336,7 @@ function cfgV(){
  const ch=(o,k)=>Object.entries(o).map(([v,l])=>`<button class="chip ${pref[k]==v?'on':''}" data-a="${k}:${v}">${l}</button>`).join(' ');
  const hasBg=pref.bgImg||pref.bgUrl;
  const pr=['y','e'].map(k=>`<button class="card" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 16px;margin:0" data-a="dec:profiles" data-i="${k}">${av(k)}<b>${esc(PF(k).name)}</b></button>`).join('');
- return hd('Configuración')+`<div class="sec" style="margin-top:8px">Perfiles</div><p class="sub">Nombre y foto de cada uno.</p><div class="grid" style="margin-top:12px;gap:12px">${pr}</div>
+ return hd('Configuración')+`${AUTH?'<div class="row" style="justify-content:flex-end"><button data-a="xlout:">Cerrar sesión</button></div>':''}<div class="sec" style="margin-top:8px">Perfiles</div><p class="sub">Nombre y foto de cada uno.</p><div class="grid" style="margin-top:12px;gap:12px">${pr}</div>
  <div class="sec">Estilo de la app</div><p class="sub">Elige la paleta de colores con la que se ve toda la página.</p><div class="th">${th}</div>
  <div class="sec">Tamaño y accesibilidad</div><p class="sub">Ajusta el tamaño base de los textos sin cambiar el diseño de las tarjetas.</p><div class="row" style="margin-top:10px">${ch({compacto:'Compacto',normal:'Normal',grande:'Grande'},'size')}</div>
  <div class="sec">Fondo de la página</div><p class="sub">Usa una imagen propia. Se aplica una capa suave para que los textos sigan siendo legibles.</p><div class="row" style="margin-top:10px">${ch(BGS,'bg')}${hasBg?`<button class="chip ${pref.bg=='imagen'?'on':''}" data-a="bg:imagen">Mi imagen</button>`:''}</div>
@@ -350,6 +351,7 @@ function render(force){if(drag){pend=1;return}if(V=='spot'&&sd&&$('#s_n'))sd=rd(
  const a=document.activeElement;
  if(!force&&a&&/^(INPUT|TEXTAREA)$/.test(a.tagName)&&a.value&&!a.closest('.md')){pend=1;return}
  pend=0;
+ if(AUTH&&!user){$('#app').innerHTML=authReady?loginV():'<p class="mu" style="text-align:center;margin-top:30vh">Cargando…</p>';$('#fr').innerHTML='';$('#md').innerHTML='';return}
  syncHash();const m={home:homeV,cal:calV,roulette:rouletteV,search:searchV,projects:projV,lists:listV,places:placesV,spot:spotV,secret:secretV,soon:soonV,cfg:cfgV,memories:memV,vault:vaultV};
  $('#app').innerHTML=m[V]()+pl();
  $('#fr').innerHTML=frame?`<div class="fr"><iframe src="${esc(frame)}" allow="autoplay; fullscreen"></iframe><div class="frb">${fext?`<a class="frx" href="${esc(fext)}" target="_blank" rel="noopener">Abrir en Maps ↗</a>`:''}<button class="frx" data-a="fx:">✕ Cerrar</button></div></div>`:'';
@@ -452,6 +454,8 @@ document.addEventListener('click',e=>{
  else if(a=='xsaveev'){const o=rdEv(),sp=o.spot?data.spots.find(x=>x.id==o.spot):null,title=o.title||(sp?'Ir a '+sp.name:'');if(!title||!o.date){toast('Falta el nombre o la fecha');return}const doc={title,date:o.date,time:o.time||'',spot:o.spot||'',note:o.note||''},id=ev.id,d=pd(doc.date);ev=null;cs={y:d.getFullYear(),m:d.getMonth(),sel:doc.date};if(id)upd('events',id,doc);else put('events',doc);render(1)}
  else if(a=='xdev')sure(b,()=>del('events',i));
  else if(a=='xr')goRes(v);
+  else if(a=='xlogin'){const e1=val('lg_e'),p1=($('#lg_p')||{}).value||'';if(!e1||!p1)return msg('Escribe tu correo y contraseña');msg('Entrando…');AUTH.signInWithEmailAndPassword(e1,p1).catch(x=>msg(x.code=='auth/network-request-failed'?'Sin conexión':'Correo o contraseña incorrectos'))}
+  else if(a=='xlout'){AUTH.signOut().then(()=>location.reload())}
   else if(a=='xrlc'){rl={src:v,sel:null,rot:0,spin:0,winner:null};V='roulette';render(1)}
   else if(a=='xmmnew'){mm={date:today(),title:'',note:'',spot:'',img:''};render(1)}
   else if(a=='xmmed'){const x=data.memories.find(y=>y.id==i);if(x){mm={...x};render(1)}}
@@ -468,7 +472,7 @@ document.addEventListener('click',e=>{
  else if(a=='xq'){q=v;const el=$('#q');if(el)el.value=v;runSearch()}
  else if(a=='xtab'){stab=v;runSearch()}
 });
-document.addEventListener('keydown',e=>{if(e.key=='Enter'&&(e.target.id=='m_n'||e.target.id=='m_p'))addDish();if(e.key=='Enter'&&e.target.id=='vk'){const b=document.querySelector('[data-a="xvin:"]');if(b)b.click()}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&(e.target.id=='m_n'||e.target.id=='m_p'))addDish();if(e.key=='Enter'&&(e.target.id=='vk'||e.target.id=='lg_p')){const b=document.querySelector(e.target.id=='vk'?'[data-a="xvin:"]':'[data-a="xlogin:"]');if(b)b.click()}});
 IC.memories='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v11H7a3 3 0 0 1-3-3z"/><path d="M8 9h6M8 13h4"/></svg>';
 const mk=(y,m,d)=>new Date(y,m,Math.min(d,new Date(y,m+1,0).getDate()));
 const DESDE='2026-07-03';const SINCE=()=>DESDE;
@@ -496,10 +500,13 @@ const hv=h=>HV.includes(h)?h:h=='spot'&&sid?'spot':h=='roulette'&&rl?'roulette':
 let hsk=0;const syncHash=()=>{const h=V=='home'?'':V;if(location.hash.slice(1)!==h){hsk=1;location.hash=h}};
 addEventListener('hashchange',()=>{if(hsk){hsk=0;return}V=hv(location.hash.slice(1));if(V!='lists'){cat=null;pf=null}ed=null;ev=null;frame=null;md=null;sm=null;if(V!='vault')vt=null;render(1)});
 V=hv(location.hash.slice(1));applyPref();render(1);
-(async()=>{
- try{D=window.claude?await claude.use('db'):null}catch(e){D=null}
- if(!D){render(1);return}
- ['cats','items','projects','soon','stickers','placed','profiles','spots','secrets','events','memories'].forEach(n=>D.collection(n).onSnapshot(s=>{data[n]=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{}));
+const FBC={apiKey:"AIzaSyCWlMSeGcT3PHzmVFv7ltcOF3VV5lUOuKg",authDomain:"nuestro-rincon-7ffcc.firebaseapp.com",projectId:"nuestro-rincon-7ffcc",storageBucket:"nuestro-rincon-7ffcc.firebasestorage.app",messagingSenderId:"736123380069",appId:"1:736123380069:web:2e36c76d45ffcec187818c"};
+const loginV=()=>`<div class="hero" style="padding-top:12vh"><h1>Nuestro rincón</h1></div><div class="card" style="max-width:380px;margin:20px auto"><div class="row"><input id="lg_e" type="email" placeholder="Correo" autocomplete="username"></div><div class="row" style="margin-top:8px"><input id="lg_p" type="password" placeholder="Contraseña" autocomplete="current-password"></div><p class="mu" id="msg" style="text-align:center"></p><button class="bigb" style="width:100%" data-a="xlogin:">Entrar</button></div>`;
+function startDB(){if(started)return;started=1;['cats','items','projects','soon','stickers','placed','profiles','spots','secrets','events','memories'].forEach(n=>D.collection(n).onSnapshot(s=>{data[n]=s.docs.map(d=>({id:d.id,...d.data()}));render()},e=>toast('Sin acceso a '+n+' ('+(e.code||'error')+')')))}
+(()=>{
+ if(typeof firebase=='undefined'){render(1);return}
+ try{firebase.initializeApp(FBC);AUTH=firebase.auth();D=firebase.firestore();D.enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(e){D=null;AUTH=null;render(1);return}
+ AUTH.onAuthStateChanged(u=>{user=u;authReady=1;if(u)startDB();render(1)});
  render(1);
 })();
 </script></body></html>
