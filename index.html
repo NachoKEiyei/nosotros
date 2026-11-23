@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="pastel" data-bg="degradado"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<meta name="theme-color" content="#fff5f7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="icon-192.png"><link rel="manifest" href="manifest.json">
+<title>Nuestro rincón</title>
+<style>
+:root{--bg:#fff5f7;--fg:#4a3340;--mu:#8d7280;--bd:#f3d3dc;--sf:#fff;--ac:#e58aa5;--ac2:#b9a3e3;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{min-height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+[data-bg=degradado] body{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 24%,var(--bg)),color-mix(in srgb,var(--ac2) 24%,var(--bg))) fixed}
+[data-bg=estrellas] body{background:radial-gradient(var(--ac) 1.2px,transparent 1.8px) 0 0/40px 40px,radial-gradient(var(--ac2) 1.2px,transparent 1.8px) 20px 20px/40px 40px,var(--bg) fixed}
+[data-bg=corazones] body{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Ctext x='8' y='40' font-size='22' opacity='.3'%3E💗%3C/text%3E%3C/svg%3E") var(--bg)}
+#app{max-width:980px;margin:0 auto;padding:22px 18px 60px}
+h1{font-size:clamp(30px,7vw,48px);margin:6px 0}
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}.top h1{margin:0;font-size:28px}
+button,input,select{font:inherit;color:var(--fg);background:var(--sf);border:1.5px solid var(--bd);border-radius:12px;padding:8px 14px}
+button{cursor:pointer}button:hover{border-color:var(--ac)}
+.pri{background:var(--ac);color:var(--on);border-color:var(--ac);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:20px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:22px;border-radius:20px;text-align:left;font-size:38px;transition:transform .15s,box-shadow .15s}
+.tile:hover{transform:translateY(-4px);box-shadow:0 10px 26px color-mix(in srgb,var(--ac) 35%,transparent)}
+.tile b{font-size:19px}.tile span,.mu{font-size:13px;color:var(--mu)}
+.cv{height:90px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,var(--ac),var(--ac2));margin-bottom:10px}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:16px;padding:14px 16px;margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row input{flex:1;min-width:120px}
+.chip{border-radius:20px;padding:4px 14px}.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.tag{font-size:12px;border:1px solid var(--bd);border-radius:10px;padding:1px 9px;color:var(--mu);white-space:nowrap}
+.it{display:flex;gap:10px;align-items:center;padding:8px 2px;border-bottom:1px dashed var(--bd)}.it .t{flex:1}.it.dn .t{text-decoration:line-through;opacity:.55}
+.x{border:0;background:none;color:var(--mu);padding:2px 8px}
+.logo{font-size:clamp(44px,12vw,84px);font-weight:700;text-align:center;margin:8vh 0 18px}
+.sb{display:flex;align-items:center;gap:10px;max-width:620px;margin:0 auto;border:1.5px solid var(--bd);border-radius:30px;padding:6px 18px;background:var(--sf)}
+.sb input{flex:1;border:0;background:none;font-size:18px;outline:0;padding:6px 0}
+.sb:focus-within{border-color:var(--ac);box-shadow:0 2px 14px color-mix(in srgb,var(--ac) 40%,transparent)}
+.res{max-width:620px;margin:20px auto}.res .card{cursor:pointer}.res b{font-size:18px;color:var(--ac)}
+.fr{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.fr .row{padding:8px 12px}.fr iframe{flex:1;border:0;width:100%;background:#fff}
+a{color:var(--ac);font-weight:600}
+:root[data-theme=popsuave]{--bg:#fbf3f7;--fg:#3b2a38;--mu:#85707f;--bd:#e9cfdc;--sf:#fff;--ac:#c97a9c;--ac2:#6f8fc9;--on:#fff}
+:root[data-theme=popfuerte]{--bg:#fff2f6;--fg:#1a1030;--mu:#6a5878;--bd:#f2a0bd;--sf:#fff;--ac:#e8175d;--ac2:#1d4ed8;--on:#fff}
+:root[data-theme=crema]{--bg:#f6eee4;--fg:#2f2218;--mu:#7d6a5a;--bd:#e3d6c4;--sf:#fffaf3;--ac:#a86c50;--ac2:#d8c3a5;--on:#fff}
+:root[data-theme=nocherosa]{--bg:#1d1424;--fg:#f6e9f1;--mu:#b9a2b8;--bd:#46304f;--sf:#2a1c33;--ac:#f08fba;--ac2:#9b7fd8;--on:#1d1424}
+:root[data-theme=oscuro],:root[data-theme=dark]{--bg:#18181a;--fg:#ececec;--mu:#9a9a9f;--bd:#34343a;--sf:#222226;--ac:#a3a3a9;--ac2:#6a6a70;--on:#18181a}
+html{font-size:16px}html[data-size=compacto]{font-size:14.5px}html[data-size=grande]{font-size:18px}
+body{font:1rem/1.55 'Plus Jakarta Sans',system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,.logo,.sec{font-weight:600;letter-spacing:-.01em}
+[data-bg=imagen] body{background:linear-gradient(color-mix(in srgb,var(--bg) 62%,transparent),color-mix(in srgb,var(--bg) 62%,transparent)),var(--bgimg) center/cover fixed,var(--bg)}
+.eyebrow{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu)}
+.hero{padding:6vh 0 4px}.hero h1{font-size:clamp(2.3rem,7vw,3.7rem);line-height:1.05;margin:8px 0 12px}
+.mu{font-size:.85rem}.card,.tile{position:relative}
+.tile{font-size:1rem;gap:6px;padding:22px;border-radius:22px}.tile b{font-size:1.1rem}.tile span{font-size:.84rem}
+.ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 16%,var(--sf));color:var(--ac);margin-bottom:8px;font-size:1.4rem;font-style:normal}
+.ic svg,.x svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.x svg{width:18px;height:18px;vertical-align:middle}
+.sec{margin:28px 0 4px;font-size:1.3rem}.sub{color:var(--mu);font-size:.88rem;margin:0 0 4px}
+.th{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px}
+.th button{position:relative;text-align:left;padding:14px;border-radius:18px;border-width:2px;display:flex;flex-direction:column;gap:14px;font-weight:500}.th button.on{border-color:var(--ac)}
+.th i{display:inline-block;width:30px;height:30px;border-radius:50%}.th i+i{margin-left:-9px}
+.th .ck{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;font-size:.75rem}
+.bigb{display:block;text-align:center;padding:14px;border-radius:16px;background:var(--ac);color:var(--on);font-weight:600;cursor:pointer;margin-top:14px}
+.stk{position:absolute;top:8px;right:8px;display:flex;gap:2px;pointer-events:none}.stk img{width:42px;height:42px;object-fit:contain}.stk.in{position:static}.stk.in img{width:30px;height:30px}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:10px;margin-top:12px}
+.sg>*{position:relative;aspect-ratio:1;border:1.5px solid var(--bd);border-radius:14px;padding:6px;background:var(--sf)}.sg>button.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,var(--sf))}
+.sg img{width:100%;height:100%;object-fit:contain}.sg .x{position:absolute;top:-7px;right:-7px;width:22px;height:22px;padding:0;font-size:.7rem;border:1px solid var(--bd);border-radius:50%;background:var(--sf)}
+.md{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.md>div{background:var(--bg);border-radius:22px;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:20px}
+.pv{width:100%;height:130px;object-fit:cover;border-radius:14px;margin-bottom:10px;display:block}
+
+#app{position:relative;min-height:100dvh;overflow-x:clip}
+.top{position:relative;justify-content:center;min-height:46px;padding:0 52px;margin-bottom:12px}.top h1{margin:0;font-size:1.3rem;font-weight:600;text-align:center}
+.bk{position:absolute;left:0;top:50%;transform:translateY(-50%);width:44px;height:44px;padding:0;border-radius:50%;display:grid;place-items:center}
+.bk svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.card{border-radius:24px;border-width:1px}.tile{border-radius:28px;padding:24px;gap:4px}.tile.card{margin:0}
+.ic{width:64px;height:64px;border-radius:50%;margin-bottom:14px}.ic svg{width:28px;height:28px}
+.tile b{font-size:1.15rem;font-weight:600}.tile span{font-size:.92rem;line-height:1.45}
+.hero{text-align:center;padding:5vh 0 0}
+.av{width:56px;height:56px;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 16%,var(--sf));color:var(--ac);font-style:normal;font-weight:600;font-size:1.4rem;flex:none}.av.lg{width:88px;height:88px;font-size:2rem}.tile .av{margin-bottom:10px}
+button.bigb{width:100%;border:0;font:inherit;font-weight:600}.bigb.alt{background:var(--sf);color:var(--ac);border:1.5px solid var(--ac)}
+.ps{position:absolute;transform:translate(-50%,-50%);pointer-events:none;z-index:5;max-width:none;height:auto;user-select:none}
+.ps.ed{pointer-events:auto;touch-action:none;cursor:grab}.ps.pk{outline:2px dashed var(--ac);outline-offset:4px;border-radius:10px}
+#fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:26;width:56px;height:56px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--ac);color:var(--on);border:0;box-shadow:0 8px 22px color-mix(in srgb,var(--ac) 45%,transparent)}
+#fab svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#tray{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:25;max-width:560px;margin:0 auto;background:var(--sf);border:1px solid var(--bd);border-radius:24px;padding:14px;box-shadow:0 12px 34px rgba(0,0,0,.18)}
+.sg.tr{margin:0;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));max-height:132px;overflow:auto}
+#toast{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:40;max-width:90vw;background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:16px;font-size:.9rem}
+
+.hero{padding:2vh 0 0}.hero h1{margin:0 0 26px}
+.fr{padding-top:env(safe-area-inset-top,0px)}.fr iframe{flex:1;width:100%;border:0;background:#fff}
+.frb{position:absolute;top:calc(env(safe-area-inset-top,0px) + 8px);right:10px;z-index:2;display:flex;gap:8px}
+.frx{padding:6px 12px;border-radius:20px;font-size:.85rem;font-weight:600;line-height:1.3;text-decoration:none;color:var(--fg);background:color-mix(in srgb,var(--sf) 88%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid var(--bd);box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.pcv{width:100%;height:120px;border-radius:18px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;overflow:hidden;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 30%,var(--sf)),color-mix(in srgb,var(--ac2) 30%,var(--sf)))}
+.pcv img{width:100%;height:100%;object-fit:cover;display:block}
+
+textarea{font:inherit;color:var(--fg);background:var(--sf);border:1.5px solid var(--bd);border-radius:12px;padding:8px 14px;width:100%;resize:vertical}
+.res{max-width:640px}
+.gt{display:flex;gap:6px;overflow-x:auto;margin:14px 0 2px;padding-bottom:4px}.gt .chip{white-space:nowrap}
+.gst{font-size:.8rem;color:var(--mu);margin:6px 2px 0}
+.gr{padding:14px 4px 16px;border-bottom:1px solid color-mix(in srgb,var(--bd) 70%,transparent);cursor:pointer}
+.gs{display:flex;align-items:center;gap:10px}.gs .s1{font-size:.84rem;line-height:1.25}.gs .s2{font-size:.74rem;color:var(--mu);line-height:1.25}
+.gi{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 16%,var(--sf));font-style:normal;font-size:.95rem;flex:none}
+.gt2{font-size:1.15rem;font-weight:600;color:var(--ac);margin:7px 0 3px;line-height:1.3}.gr:hover .gt2{text-decoration:underline}
+.gsn{font-size:.9rem;line-height:1.5;color:var(--fg);opacity:.85}
+mark{background:color-mix(in srgb,var(--ac) 26%,transparent);color:inherit;border-radius:4px;padding:0 2px;font-weight:700}
+.gf{display:flex;gap:14px;align-items:center;cursor:pointer;margin:14px 0 4px;background:color-mix(in srgb,var(--ac) 10%,var(--sf))}
+.gf .gi{width:52px;height:52px;font-size:1.6rem}.gf .t1{font-weight:600;font-size:1.05rem}
+
+.ptr{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid var(--fg);z-index:2;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+#wh{will-change:transform}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .dh{text-align:center;font-size:.72rem;color:var(--mu);padding:4px 0}
+button.dc{aspect-ratio:1;min-height:42px;padding:2px;border-radius:14px;border:1.5px solid transparent;background:var(--sf);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;font-size:.9rem}
+button.dc.td{border-color:var(--ac)}button.dc.sl{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.dc .dt{display:flex;gap:2px;justify-content:center}.pt{width:6px;height:6px;border-radius:50%;background:var(--ac2);display:inline-block}.dc.sl .pt{background:var(--on)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.logo{user-select:none;-webkit-tap-highlight-color:transparent}
+.cd{text-align:center;padding:4px 18px 0;margin:0 auto 6px;max-width:420px}.cd b{font-size:1.8rem;color:var(--ac)}
+.mc img{width:100%;max-height:320px;object-fit:cover;border-radius:16px;margin:8px 0 0;display:block}
+</style></head><body>
+<div id="app"></div><div id="fr"></div><div id="md"></div>
+<script>
+const $=s=>document.querySelector(s),U=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const okUrl=u=>/^https:\/\//i.test(u||'')?u:'';
+const THEMES={pastel:['Pastel clásico','#e88fab','#b3a1e3'],popsuave:['Pop noventero suave','#c97a9c','#6f8fc9'],popfuerte:['Pop noventero fuerte','#e8175d','#1d4ed8'],crema:['Editorial crema','#a86c50','#d8c3a5'],nocherosa:['Noche rosa','#f08fba','#9b7fd8'],oscuro:['Modo oscuro','#5f5f63','#8f8f92']},BGS={degradado:'Degradado',liso:'Liso',estrellas:'Puntos',corazones:'Corazones'};
+const BASE=[
+ {id:'b-pag',emoji:'🎂',title:'Feliz cumpleaños',desc:'Sorpresa de cumpleaños: estrella, cartas, fotos, certificado y juego',url:'https://nachokeiyei.github.io/pag/',base:1},
+ {id:'b-love',emoji:'💗',title:'¿Me amas?',desc:'Mensaje de aniversario con contador de días juntos',url:'https://nachokeiyei.github.io/love/',base:1},
+ {id:'b-amarilla',emoji:'🌼',title:'Flores amarillas',desc:'Corazón de flores amarillas con un mensaje para ti',url:'https://nachokeiyei.github.io/amarilla/',base:1},
+ {id:'b-liked',emoji:'🌌',title:'Todo lo que me gusta de ti',desc:'Un pequeño universo con recuerdos y una puerta secreta',url:'https://nachokeiyei.github.io/liked/',base:1}
+];
+const PIDX={
+ 'b-pag':{kw:'cumpleaños cumple estrella certificado fotos secretas vales razones juego trivia mapa carta aniversario predicción ecuación del amor amanecer',text:`Feliz cumpleaños, Fer. Toca la estrella, arranca el sello. Encontraste la estrella: planeo pasar toda mi vida contigo, amor. Gracias por aparecer en mi vida, espero celebrar todos tus cumpleaños juntos. Fotos secretas. El destino dice… predicción del amor. Certificado de amor: oficialmente la persona más importante de mi vida. Corazones tocados, tiempo juntos. Ecuación del amor: corazones por segundos juntos, esta es la cantidad de amor que siento por ti, amor. Un nuevo amanecer: que este sea el primero de muchos amaneceres juntos, mi amor. Hoy es tu día, y quería dejarte algo especial. Para ti, amor: feliz cumpleaños, que la pases lo mejor en tu día especial, ya cumples 20 años, tus estudios, gracias a esto nos pudimos conocer, fue mi mejor decisión haberte hablado, cada día te vuelves más hermosa para mis ojos, una película infinita para capturar cada momento del día junto a ti, me vuelves loco, eres la persona más importante para mí, te amo, muak. PD: hay un mensaje escondido por ahí. Nuestros momentos: nuestra primera foto juntos, mi primer regalo, nuestro primer aniversario, qué hermosos, me encanta esta foto. Dónde empezamos: mapa del CFT San Agustín en Talca, 03 de julio el día que empezamos. Nuestro mapa: primera vez que hablamos 26 de marzo, oficializamos 03 de julio, hoy. Mensaje de voz, escúchame. Razones para amarte. Vales para canjear: una cita sorpresa elegida por mí, el postre que tú quieras cuando quieras, una escapada solo nosotros dos, vemos la película que tú quieras, voy donde quieras y hacemos lo que quieras. Antes de irte: un juego rápido, trivia de cinco preguntas sobre cuándo oficializamos, la primera película que vimos, mi comida favorita, dónde fue la primera vez que hablamos y lo que más amo hacer contigo. Me conoces perfecto, gracias por ser tú, feliz cumpleaños, amor.`},
+ 'b-love':{kw:'aniversario me amas contador días juntos canción 3 de julio',text:`¿Me amas? Sí o No. Feliz aniversario, mi amor. Gracias por aparecer en mi vida y estar conmigo día a día. Cada momento contigo se siente como el lugar al que siempre quise pertenecer. Me haces el hombre más feliz del mundo entero. Gracias por tu paciencia, tu cariño y por elegirme una y otra vez. Contigo he aprendido lo que es amar de verdad, sin miedo y sin medida. Ojalá podamos estar juntos hasta el fin de los fines. Juntos desde el 3 de julio: días, horas, minutos y segundos. Canción.`},
+ 'b-amarilla':{kw:'flores amarillas girasol corazón carta canción día de las flores amarillas',text:`Corazón de flores amarillas. Toca para iniciar. Feliz Día de las Flores Amarillas. Para ti mi amor: hay personas que llegan y sin darse cuenta hacen que muchos de tus días cambien de color. Eso es lo que haces para mí todos los días, mi amor. Muak. Te amo muchísimo. Gracias por cada momento compartido, por las risas y por estar ahí incluso en lo más simple. Quiero que sepas cuánto vales y cuánto significas para mí. Canción de Flores Amarillas.`},
+ 'b-liked':{kw:'universo puerta recuerdos letras cifradas estrellas carta flor amarilla universo rojo',text:`Todo lo que me gusta de ti. Cargando nuestro amor. Toca el pequeño universo rosa. Tres instantes de nuestra historia, toca las estrellas azules. Para ti: hay personas que llegan y, sin darse cuenta, hacen que muchos de tus días sean mejores. Así eres tú para mí. Gracias por cada momento compartido, por las risas y por estar ahí incluso en lo simple. Que esta flor amarilla te recuerde, hoy y siempre, lo especial que eres. Leer tu carta. Una puerta para ti: necesitas encontrar las letras cifradas escondidas en los recuerdos, descifrar. La persona más especial para mí. La puerta lleva a otro universo, ¿entramos? Ir al nuevo universo. Volver al universo rojo. Nuestros recuerdos: gira para elegir una página. Viajando a nuestro siguiente universo.`}
+};
+const WHO={e:'💗 Ella',y:'💙 Él',a:'💞 Ambos'};
+let md=null,mm=null,vt=null,logoN=0,lt=0,D=null,V='home',cat=null,ed=null,frame=null,fext='',sid=null,sd=null,plf='todos',sid2=null,stab='todo',rtn=null,rl=null,cs=null,ev=null,fw='',q='',pend=0;
+const data={cats:[],items:[],projects:[],soon:[],stickers:[],placed:[],profiles:[],spots:[],secrets:[],events:[],memories:[]};
+let pref={theme:matchMedia('(prefers-color-scheme:dark)').matches?'oscuro':'pastel',bg:'degradado',size:'normal',bgImg:'',bgUrl:''};
+try{Object.assign(pref,JSON.parse(localStorage.getItem('nos-pref')||'{}'))}catch(e){}
+function applyPref(){const r=document.documentElement,u=pref.bgImg||pref.bgUrl;if(!THEMES[pref.theme])pref.theme='pastel';if(pref.bg=='imagen'&&!u)pref.bg='degradado';r.dataset.theme=pref.theme;r.dataset.bg=pref.bg;r.dataset.size=pref.size||'normal';if(u)r.style.setProperty('--bgimg','url("'+u.replace(/["\\\n]/g,'')+'")');try{localStorage.setItem('nos-pref',JSON.stringify(pref))}catch(e){}
+ const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=getComputedStyle(r).getPropertyValue('--bg').trim()||'#fff5f7'}
+let tt;const toast=t=>{let e=$('#toast');if(!e){e=document.createElement('div');e.id='toast';document.body.appendChild(e)}e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>{e.style.display='none'},6000)};
+const er=e=>toast('No se pudo guardar'+(e&&(e.code||e.message)?' ('+(e.code||e.message)+')':''));
+const put=(n,o)=>{if(D)return D.collection(n).add(o).catch(er);data[n].push({id:U(),...o});render(1)};
+const upd=(n,id,o)=>{if(D)return D.doc(n+'/'+id).update(o).catch(er);Object.assign(data[n].find(x=>x.id==id)||{},o);render(1)};
+const del=(n,id)=>{if(D)return D.doc(n+'/'+id).delete().catch(er);data[n]=data[n].filter(x=>x.id!=id);render(1)};
+function delCat(id){data.cats.filter(c=>c.parent==id).forEach(c=>delCat(c.id));data.items.filter(i=>i.cat==id).forEach(i=>del('items',i.id));del('cats',id)}
+const hd=(t,b)=>`<div class="top"><button class="bk" data-a="${b?'up:':'go:home'}" aria-label="Volver">${IC.back}</button><h1>${t}</h1></div>`;
+const val=id=>($('#'+id)?.value||'').trim();
+
+const IC={};[['search','<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'],['projects','<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-4.5-4.5a1.5 1.5 0 0 0-2 0L6 20"/>'],['lists','<path d="M3 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3z"/><path d="M21 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>'],['places','<path d="M19 10c0 5.5-7 11-7 11s-7-5.5-7-11a7 7 0 0 1 14 0z"/><circle cx="12" cy="10" r="2.5"/>'],['soon','<path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17v4M17 19h4"/>'],['cfg','<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'],['sticker','<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 2 3.5 2 3.5-2 3.5-2M9 9.5h.01M15 9.5h.01"/>']].forEach(([k,p])=>IC[k]=`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`);
+const di=u=>/^data:image\//.test(u||''),sk=id=>data.stickers.find(x=>x.id==id),msg=t=>{const m=$('#msg');if(m)m.textContent=t};
+const stks=(d,c='')=>{const l=(d.stk||[]).map(sk).filter(x=>x&&di(x.src));return l.length?`<div class="stk ${c}">${l.map(x=>`<img src="${esc(x.src)}" alt="">`).join('')}</div>`:''};
+async function rzFit(f,mx,lim){let q=.78,m=mx,u=await rz(f,m,'image/jpeg',q);while(u.length>lim&&m>240){m=Math.round(m*.8);q=Math.max(.55,q-.05);u=await rz(f,m,'image/jpeg',q)}return u}
+const rz=(f,mx,ty,qa)=>new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const im=new Image();im.onerror=no;im.onload=()=>{const k=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL(ty,qa))};im.src=r.result};r.readAsDataURL(f)});
+let sm=null,pf=null,drag=0;IC.back='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
+const PF=id=>{const p=data.profiles.find(x=>x.id==id)||{};return{name:p.name||(id=='y'?'Él':'Ella'),photo:di(p.photo)?p.photo:''}};
+const av=(id,c='')=>{const p=PF(id);return p.photo?`<img class="av ${c}" src="${esc(p.photo)}" alt="">`:`<i class="av ${c}">${esc(p.name[0]||'?')}</i>`};
+const pk=()=>V+(V=='lists'?':'+(pf||'')+':'+(cat||''):'');
+function saveProf(id,o){const cur=data.profiles.find(x=>x.id==id)||{},n={...cur,...o};delete n.id;if(D)return D.doc('profiles/'+id).set(n).catch(er);const i=data.profiles.findIndex(x=>x.id==id);i<0?data.profiles.push({id,...n}):data.profiles[i]={id,...n};render(1)}
+function pl(){return data.placed.filter(x=>x.k==pk()).map(x=>{const t=sk(x.s);return t&&di(t.src)?`<img class="ps${sm?' ed':''}${sm&&sm.pick==x.id?' pk':''}" data-p="${x.id}" src="${esc(t.src)}" alt="" style="left:${+x.x||0}%;top:${+x.y||0}px;width:${+x.w||84}px">`:''}).join('')}
+function trayV(){
+ if(frame||(md&&!sm))return'';
+ const fab=`<button id="fab" data-a="sm:" aria-label="Stickers">${IC.sticker}</button>`;if(!sm)return fab;
+ const L=data.stickers.filter(x=>di(x.src)),pc=sm.pick&&data.placed.find(x=>x.id==sm.pick);
+ return `<div id="tray">${L.length?`<div class="sg tr">${L.map(x=>`<button class="${sm.sel==x.id?'on':''}" data-a="sel:${x.id}"><img src="${esc(x.src)}" alt=""></button>`).join('')}</div><p class="mu" style="margin:8px 0 0">${sm.sel?'Toca la página para colocarlo':'Elige un sticker'}</p>`:'<p class="mu" style="margin:0">Aún no tienes stickers.</p>'}<div class="row" style="margin-top:10px">${L.length?'':'<button data-a="smcfg:">Subir stickers</button>'}${pc?'<button data-a="szs:-">−</button><button data-a="szs:+">+</button><button data-a="dps:">Eliminar</button>':''}<span style="flex:1"></span><button class="pri" data-a="sm:">Listo</button></div></div>`+fab}
+function profMd(){const p=PF(md.id);return `<div class="md" data-a="mx:"><div style="text-align:center"><div style="display:flex;justify-content:center">${av(md.id,'lg')}</div><div class="row" style="justify-content:center;margin:12px 0"><label class="chip" style="cursor:pointer">Cambiar foto<input id="fpf" type="file" accept="image/*" hidden></label></div><input id="pn" value="${esc(p.name)}" placeholder="Nombre" style="width:100%;text-align:center"><input id="pb" type="date" value="${esc((data.profiles.find(x=>x.id==md.id)||{}).bday)}" style="width:100%;margin-top:8px"><p class="mu" style="margin:4px 0 0">Cumpleaños</p><p class="mu" id="msg" style="margin:8px 0 0"></p><div class="row" style="margin-top:16px;justify-content:flex-end"><button data-a="mx:">Cancelar</button><button class="pri" data-a="spn:">Guardar</button></div></div></div>`}
+function mdV(){return md&&md.c=='profiles'?profMd():mdV0()}
+function homeV(){
+ const T=[['search','Buscador','Encuentra cualquier cosa nuestra en segundos'],['projects','Proyectos juntos','Las páginas que hice para ti'],['lists','Listas','Lo que nos gusta, por categorías'],['places','Lugares','Dónde iremos juntos'],['memories','Recuerdos','Nuestro diario de momentos'],['cal','Calendario','Planear días y lugares juntos'],['soon','Próximamente','Espacio para lo que viene'],['cfg','Configuración','Colores, fondo, perfiles y stickers']];
+ return `<div class="hero"><h1>Nuestro rincón</h1></div>${cdV()}<div class="grid">${T.map(t=>`<button class="tile card" data-a="go:${t[0]}"><i class="ic">${IC[t[0]]}</i><b>${t[1]}</b><span>${t[2]}</span></button>`).join('')}</div>${D?'':'<p class="mu" style="text-align:center;margin-top:26px">Sin conexión · por ahora nada se guarda en línea</p>'}`}
+function searchV(){
+ const cl=['#4285f4','#ea4335','#fbbc05','#4285f4','#34a853','#ea4335','#4285f4','#fbbc05'];
+ return `<div class="top"><button class="bk" data-a="go:home" aria-label="Volver">${IC.back}</button></div><div class="logo" data-a="xlogo:">${[...'Nosotros'].map((c,i)=>`<span style="color:${cl[i]}">${c}</span>`).join('')}</div>
+ <div class="sb">🔍<input id="q" placeholder="Busca amor, un lugar, una lista, una palabra secreta…" value="${esc(q)}" autocomplete="off"></div>
+ <div class="res" id="res" style="margin-top:22px"></div>`}
+const fold=c=>{const r=c.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();return r.length==1?r:(c.toLowerCase().length==1?c.toLowerCase():c)};
+const nf=t=>String(t==null?'':t).split('').map(fold).join('');
+const toks=t=>nf(t).split(/\s+/).filter(w=>w.length>=2);
+const vars=w=>{const a=[w];if(w.length>4){const b=w.replace(/(es|s)$/,'');if(b!==w&&b.length>=3)a.push(b)}return a};
+function hl(seg,T){const n=nf(seg),m=new Array(seg.length).fill(0);T.forEach(w=>{if(!w)return;let k=n.indexOf(w);while(k>=0){for(let j=k;j<k+w.length&&j<m.length;j++)m[j]=1;k=n.indexOf(w,k+w.length)}});let o='',i=0;while(i<seg.length){let j=i;while(j<seg.length&&m[j]==m[i])j++;const part=esc(seg.slice(i,j));o+=m[i]?`<mark>${part}</mark>`:part;i=j}return o}
+function snip(txt,T,len){txt=String(txt||'').replace(/\s+/g,' ').trim();if(!txt)return'';len=len||180;const n=nf(txt);let p=-1;for(const w of T){const k=n.indexOf(w);if(k>=0&&(p<0||k<p))p=k}let a=0;if(p>60){a=p-60;const sp=txt.indexOf(' ',a);if(sp>=0&&sp<p)a=sp+1}const b=Math.min(txt.length,a+len);return(a>0?'… ':'')+hl(txt.slice(a,b),T)+(b<txt.length?' …':'')}
+function score(d,T,and){let sc=0,hit=0;for(const w of T){let f=0;for(const v of vars(w)){if(d.tn.includes(v))f=Math.max(f,6+(d.tn.startsWith(v)?3:0));if(d.kn.includes(v))f=Math.max(f,5);if(d.bn.includes(v)){let c=0,k=d.bn.indexOf(v);while(k>=0&&c<5){c++;k=d.bn.indexOf(v,k+v.length)}f=Math.max(f,1+c*.5)}}if(f){hit++;sc+=f}}return and?(hit==T.length?sc:0):sc}
+function buildDocs(){
+ const docs=[],P=id=>{const o=[];let c=data.cats.find(x=>x.id==id);while(c){o.unshift(c.name);c=data.cats.find(x=>x.id==c.parent)}return o};
+ [...BASE,...data.projects].forEach(p=>{const ix=PIDX[p.id]||{};let host='';try{const u=new URL(p.url);host=u.host+u.pathname.replace(/\/$/,'').replace(/\//g,' › ')}catch(e){}docs.push({t:'pag',e:p.emoji||'💌',title:p.title||'',site:host||'Nuestro rincón',path:'Proyectos juntos',kw:[p.kw,ix.kw].filter(Boolean).join(' '),body:[p.desc,ix.text].filter(Boolean).join(' · '),go:'proj:'+p.id})});
+ data.spots.forEach(x=>{const t=TY[x.type]||TY.lugar,mn=(x.menu||[]).map(m=>m.n+(m.p?' '+m.p:'')).join(', ');docs.push({t:'lug',e:x.emoji||t.e,title:x.name||'',site:'Nuestro rincón',path:'Lugares › '+t.l,kw:t.l+(x.done?' visitado':' por visitar'),body:[x.addr&&'📍 '+x.addr,x.note,mn&&'Menú: '+mn].filter(Boolean).join(' · '),go:'spot:'+x.id})});
+ data.items.filter(i=>i.cat=='lugares').forEach(i=>docs.push({t:'lug',e:'📍',title:i.text,site:'Nuestro rincón',path:'Lugares',kw:i.done?'visitado':'por visitar',body:'',go:'view:places'}));
+ data.cats.forEach(c=>{const its=data.items.filter(i=>i.cat==c.id).map(i=>i.text),subs=data.cats.filter(x=>x.parent==c.id).map(x=>x.name);docs.push({t:'lis',e:c.emoji||'🗂️',title:c.name||'',site:'Nuestro rincón',path:['Listas',c.owner?PF(c.owner).name:null,...P(c.parent)].filter(Boolean).join(' › '),kw:'',body:[...subs,...its].join(' · '),go:'cat:'+c.id})});
+ data.items.filter(i=>i.cat!='lugares').forEach(i=>{const c=data.cats.find(x=>x.id==i.cat),pa=c?P(c.id):[];docs.push({t:'lis',e:'📚',title:i.text||'',site:'Nuestro rincón',path:['Listas',...pa].join(' › '),kw:'',body:(c?'En la lista '+c.name:'')+(i.done?' · hecho ✓':''),go:'cat:'+i.cat})});
+ data.events.forEach(e=>{const sp=e.spot&&data.spots.find(x=>x.id==e.spot);docs.push({t:'otr',e:'📅',title:e.title||'',site:'Nuestro rincón',path:'Calendario › '+lf(e.date),kw:'plan calendario',body:[e.time&&'🕒 '+e.time,sp&&'📍 '+sp.name,e.note].filter(Boolean).join(' · '),go:'day:'+e.date})});
+ data.memories.forEach(m=>docs.push({t:'otr',e:'📖',title:m.title||'',site:'Nuestro rincón',path:'Recuerdos › '+(m.date?lf(m.date):''),kw:'recuerdo diario',body:m.note||'',go:'view:memories'}));
+ data.soon.forEach(x=>docs.push({t:'otr',e:x.emoji||'✨',title:x.title||'',site:'Nuestro rincón',path:'Próximamente',kw:'',body:x.note||'',go:'view:soon'}));
+ return docs}
+/* PALABRAS SECRETAS: agrégalas aquí o en la colección "secrets" de la base de datos.
+   Formato: {id:'s1',emoji:'💌',title:'Título',kw:'palabra1, palabra2',msg:'Mensaje',url:'https://…(opcional)'} */
+const SECRETS=[];
+const allSec=()=>[...SECRETS,...data.secrets];
+const secHit=(x,qn)=>(x.kw||'').split(',').map(k=>nf(k).trim()).filter(k=>k.length>=2).some(k=>qn.includes(k));
+const SUGG=['amor','flores','cumpleaños','aniversario','mapa','canción','carta','recuerdos'];
+function runSearch(){
+ const el=$('#res');if(!el)return;const T=toks(q),qn=nf(q.trim());
+ if(!T.length){el.innerHTML=`<p class="mu" style="text-align:center">Escribe una palabra y te muestro dónde aparece en tus páginas, lugares y listas.</p><div class="row" style="justify-content:center;margin-top:8px">${[...SUGG,...data.spots.slice(0,2).map(x=>x.name),...data.cats.slice(0,2).map(x=>x.name)].filter(Boolean).map(w=>`<button class="chip" data-a="xq:${esc(w)}">${esc(w)}</button>`).join('')}</div>`;return}
+ const docs=buildDocs().map(d=>({...d,tn:nf(d.title),kn:nf(d.kw),bn:nf(d.body)}));
+ let r=docs.map(d=>({d,s:score(d,T,1)})).filter(x=>x.s>0),partial=0;
+ if(!r.length&&T.length>1){r=docs.map(d=>({d,s:score(d,T,0)})).filter(x=>x.s>0);partial=1}
+ r.sort((a,b)=>b.s-a.s);
+ const H=[...new Set(T.flatMap(vars))],sec=allSec().filter(x=>secHit(x,qn));
+ const cnt=k=>k=='todo'?r.length:r.filter(x=>x.d.t==k).length,TB=[['todo','Todo'],['pag','Páginas'],['lug','Lugares'],['lis','Listas']];
+ if(stab!='todo'&&!cnt(stab))stab='todo';
+ const shown=r.filter(x=>stab=='todo'||x.d.t==stab).slice(0,40);
+ const feat=sec.map(x=>`<div class="card gf" data-a="xr:secret:${x.id}"><i class="gi">${esc(x.emoji||'💌')}</i><div style="flex:1;min-width:0"><div class="t1">${esc(x.title)}</div><div class="mu">${esc((x.msg||'').slice(0,90))}${(x.msg||'').length>90?'…':''}</div></div><span class="tag">✨ Secreto</span></div>`).join('');
+ const tabs=r.length?`<div class="gt">${TB.filter(t=>t[0]=='todo'||cnt(t[0])).map(t=>`<button class="chip ${stab==t[0]?'on':''}" data-a="xtab:${t[0]}">${t[1]} · ${cnt(t[0])}</button>`).join('')}</div><div class="gst">${partial?'No hay nada con todas las palabras; te muestro lo más parecido · ':''}${shown.length} resultado${shown.length==1?'':'s'}</div>`:'';
+ const list=shown.map(({d})=>`<div class="gr" data-a="xr:${esc(d.go)}"><div class="gs"><i class="gi">${esc(d.e)}</i><div style="min-width:0"><div class="s1">${esc(d.site)}</div><div class="s2">${esc(d.path)}</div></div></div><div class="gt2">${hl(d.title,H)}</div><div class="gsn">${snip(d.body,H)}</div></div>`).join('');
+ const none=!r.length&&!sec.length?`<p class="mu" style="text-align:center;margin-top:24px">No encontré nada para “${esc(q)}”. Prueba con otra palabra.</p>`:'';
+ el.innerHTML=feat+tabs+list+none}
+function goRes(v){const[k,id]=v.split(/:(.*)/s);
+ if(k=='spot'){const x=data.spots.find(y=>y.id==id);if(!x)return;sid=id;sd={...x};rtn='search';V='spot'}
+ else if(k=='proj'){const x=[...BASE,...data.projects].find(y=>y.id==id);if(x&&okUrl(x.url)){fext='';frame=x.url;render(1);return}V='projects'}
+ else if(k=='cat'){const c=data.cats.find(y=>y.id==id);V='lists';cat=id;pf=(c&&c.owner)||'y'}
+ else if(k=='view'){V=id;cat=null;pf=null}
+ else if(k=='secret'){V='secret';sid2=id}
+ else if(k=='day'){const d=pd(id);cs={y:d.getFullYear(),m:d.getMonth(),sel:id};V='cal'}
+ render(1)}
+function secretV(){
+ const x=allSec().find(y=>y.id==sid2);if(!x)return hd('Secreto',1)+'<p class="mu" style="text-align:center">No encontré este secreto.</p>';
+ return hd(esc(x.title),1)+`<div class="card" style="position:relative;text-align:center;padding:26px 20px">${stks(x)}${(di(x.img)||/^\/_blob\//.test(x.img||''))?`<img class="pv" style="height:auto;max-height:340px" src="${esc(x.img)}" alt="">`:`<div style="font-size:3.6rem">${esc(x.emoji||'💌')}</div>`}<h2 style="margin:10px 0 0">${esc(x.title)}</h2>${x.msg?`<p style="white-space:pre-wrap;text-align:left;margin:14px 0 0">${esc(x.msg)}</p>`:''}${okUrl(x.url)?`<button class="pri" style="margin-top:16px" data-a="open:${esc(x.url)}">Abrir página</button>`:''}</div>`}
+
+function projV(){
+ const e=ed&&ed!='new'?data.projects.find(x=>x.id==ed):{};
+ const form=ed?`<div class="card"><div class="row"><input id="pe" style="max-width:70px" placeholder="🌸" value="${esc(e.emoji)}"><input id="pt" placeholder="Título" value="${esc(e.title)}"></div><div class="row" style="margin-top:8px"><input id="pd" placeholder="Descripción corta" value="${esc(e.desc)}"></div><div class="row" style="margin-top:8px"><input id="pl" placeholder="Link de la página (https://…)" value="${esc(e.url)}"></div><div class="row" style="margin-top:8px"><input id="pkw" placeholder="Palabras clave para el buscador (amor, flores, carta…)" value="${esc(e.kw)}"></div><div class="row" style="margin-top:10px"><button class="pri" data-a="sp:">Guardar</button><button data-a="cancel:">Cancelar</button></div></div>`:'';
+ const tile=p=>`<div class="tile card" ${okUrl(p.url)?`data-a="open:${esc(p.url)}" style="cursor:pointer"`:''}>${stks(p)}${di(p.img)?`<img class="pv" src="${esc(p.img)}" alt="">`:`<i class="ic">${esc(p.emoji||'💌')}</i>`}<b>${esc(p.title)}</b><span>${esc(p.desc)}</span>${p.base?'':`<div class="row" style="margin-top:8px"><button class="x" data-a="dec:projects" data-i="${p.id}" title="Imagen y stickers">${IC.sticker}</button><button class="x" data-a="ed:" data-i="${p.id}">✎</button><button class="x" data-a="dp:" data-i="${p.id}" data-o="🗑">🗑</button></div>`}</div>`;
+ const add=`<button class="tile card" style="border-style:dashed;justify-content:center" data-a="new:"><i class="ic" style="font-size:1.8rem">+</i><b>Agregar proyecto</b><span>Suma una página nueva con su link</span></button>`;
+ return hd('Proyectos juntos')+form+`<div class="grid">${[...BASE,...data.projects].map(tile).join('')}${add}</div>`}
+
+function itemsV(cid,place){
+ const its=data.items.filter(i=>i.cat==cid);
+ return `<div class="card"><div class="row"><input id="it" placeholder="${place?'Un lugar donde ir…':'Agregar a la lista…'}"><button class="pri" data-a="ai:${cid}">+</button>${its.length>1&&!place?`<button data-a="xrlc:${cid}" title="Elegir al azar" aria-label="Elegir al azar">🎡</button>`:''}</div>${its.map(i=>`<div class="it ${i.done?'dn':''}"><button class="x" data-a="tg:" data-i="${i.id}" title="${place?'Visitado':'Hecho'}">${i.done?'☑':'☐'}</button><span class="t">${esc(i.text)}</span>${stks(i,'in')}<button class="x" data-a="dec:items" data-i="${i.id}" title="Stickers">${IC.sticker}</button><button class="x" data-a="di:" data-i="${i.id}">✕</button></div>`).join('')||'<p class="mu">Vacío por ahora.</p>'}</div>`}
+function listV(){
+ if(!pf)return hd('Listas')+`<div class="grid">${['y','e'].map(k=>{const n=data.cats.filter(c=>!c.parent&&(!c.owner||c.owner==k)).length;return `<button class="tile card" data-a="pf:${k}">${av(k,'lg')}<b>${esc(PF(k).name)}</b><span>${n} categoría(s)</span></button>`}).join('')}</div>`;
+ const c=cat&&data.cats.find(x=>x.id==cat),mine=x=>!x.owner||x.owner==pf,subs=data.cats.filter(x=>mine(x)&&(x.parent||'')==(c?c.id:'')),
+ cnt=id=>data.items.filter(i=>i.cat==id).length+data.cats.filter(x=>x.parent==id).length,
+ sug=!c&&!data.cats.some(mine)?`<p class="sub" style="margin-top:14px">Empieza con una idea</p><div class="row" style="margin-top:8px">${['📚 Libros','👗 Ropa','💗 Cosas favoritas','🍽️ Comidas','🎬 Películas'].map(x=>`<button class="chip" data-a="qc:${x}">${x}</button>`).join('')}</div>`:'';
+ return hd(c?esc(((c.emoji||'')+' '+c.name).trim()):esc(PF(pf).name),1)+(c?'':`<div style="display:flex;justify-content:center;margin:4px 0 8px"><button class="x" data-a="dec:profiles" data-i="${pf}" title="Editar perfil">${av(pf,'lg')}</button></div>`)+`<div class="card"><div class="row"><input id="ce" style="max-width:70px" placeholder="📚"><input id="cn" placeholder="${c?'Nueva subcategoría':'Nueva categoría'}"><button class="pri" data-a="sc:">Crear</button></div></div>${sug}<div class="grid">${subs.map(x=>`<button class="tile card" data-a="cat:${x.id}">${stks(x)}<i class="ic">${esc(x.emoji||'🗂️')}</i><b>${esc(x.name)}</b><span>${cnt(x.id)} elemento(s)</span></button>`).join('')}</div>`+(c?itemsV(c.id)+`<p><button class="x" data-a="dec:cats" data-i="${c.id}">${IC.sticker} Stickers</button> <button class="x" data-a="dc:" data-o="🗑 Borrar categoría">🗑 Borrar categoría</button></p>`:'')}
+const TY={lugar:{e:'📍',l:'Lugar'},resto:{e:'🍽️',l:'Restaurante'},cafe:{e:'☕',l:'Cafetería'},paseo:{e:'🌳',l:'Paseo'}};
+const hasMenu=t=>t=='resto'||t=='cafe';
+const fixUrl=u=>{u=(u||'').trim();if(!u)return'';return /^https?:\/\//i.test(u)?u.replace(/^http:/i,'https:'):'https://'+u};
+function mapQ(s){const u=s.url||'';let m=u.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)||u.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);if(m)return m[1]+','+m[2];m=u.match(/[?&](?:q|query)=([^&]+)/);if(m){try{return decodeURIComponent(m[1].replace(/\+/g,' '))}catch(e){}}return[s.name,s.addr].filter(Boolean).join(' ')}
+const mapEmb=s=>'https://maps.google.com/maps?q='+encodeURIComponent(mapQ(s))+'&output=embed&z=15';
+const mapOut=s=>okUrl(s.url)||'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(mapQ(s));
+const rd=()=>{const o={...sd};['s_e:emoji','s_n:name','s_a:addr','s_u:url','s_t:note','s_mu:menuUrl'].forEach(p=>{const[i,k]=p.split(':'),el=$('#'+i);if(el)o[k]=el.value.trim()});return o};
+function mdV0(){
+ if(!md)return'';const d=(data[md.c]||[]).find(x=>x.id==md.id);if(!d)return'';
+ const L=data.stickers.filter(x=>di(x.src));
+ return `<div class="md" data-a="mx:"><div><div class="sec" style="margin-top:0">Imagen y stickers</div>${di(d.img)?`<img class="pv" src="${esc(d.img)}" alt="">`:''}<label class="bigb">Elegir imagen<input id="fcv" type="file" accept="image/*" hidden></label>${di(d.img)?'<button class="bigb alt" data-a="dimg:">Quitar imagen</button>':''}<p class="mu" id="msg"></p><div class="sec">Stickers</div>${L.length?`<div class="sg">${L.map(x=>`<button class="${(d.stk||[]).includes(x.id)?'on':''}" data-a="stt:${x.id}"><img src="${esc(x.src)}" alt=""></button>`).join('')}</div>`:'<p class="mu">Sube tus stickers en Configuración.</p>'}<div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" data-a="mx:">Listo</button></div></div></div>`}
+
+IC.cal='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+const pad=n=>String(n).padStart(2,'0'),fd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),today=()=>fd(new Date());
+const pd=t=>{const[a,b,c]=String(t||'').split('-').map(Number);return new Date(a||2000,(b||1)-1,c||1)};
+const MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],DSEM=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const lf=t=>{const d=pd(t);return DSEM[d.getDay()]+' '+d.getDate()+' de '+MES[d.getMonth()]},sh=t=>{const d=pd(t);return d.getDate()+' '+MES[d.getMonth()].slice(0,3)};
+const cmpEv=(a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||''));
+const rdEv=()=>{const o={...ev};[['cal_t','title'],['cal_d','date'],['cal_h','time'],['cal_p','spot'],['cal_n','note']].forEach(([i,k])=>{const e=$('#'+i);if(e)o[k]=e.value.trim()});return o};
+const spIc=x=>x.emoji||(TY[x.type]||TY.lugar).e;
+function calV(){
+ if(!cs){const n=new Date();cs={y:n.getFullYear(),m:n.getMonth(),sel:today()}}
+ const first=(new Date(cs.y,cs.m,1).getDay()+6)%7,dim=new Date(cs.y,cs.m+1,0).getDate(),td=today(),by={};
+ [...data.events,...autoMonth(cs.y,cs.m)].forEach(e=>{(by[e.date]=by[e.date]||[]).push(e)});
+ let cells='';for(let i=0;i<first;i++)cells+='<div></div>';
+ for(let d=1;d<=dim;d++){const k=cs.y+'-'+pad(cs.m+1)+'-'+pad(d),n=(by[k]||[]).length;cells+=`<button class="dc ${k==td?'td':''} ${k==cs.sel?'sl':''}" data-a="xday:${k}"><span>${d}</span>${n?`<span class="dt">${'<i class="pt"></i>'.repeat(Math.min(n,3))}</span>`:''}</button>`}
+ const evs=(by[cs.sel]||[]).slice().sort(cmpEv);
+ const evCard=e=>{const sp=e.spot?data.spots.find(x=>x.id==e.spot):null;return `<div class="card" style="margin:8px 0;${e.date<td?'opacity:.65':''}"><div class="row">${e.time?`<span class="tag">🕒 ${esc(e.time)}</span>`:''}<b style="flex:1">${esc(e.title)}</b>${e.auto?'':`<button class="x" data-a="xeed:" data-i="${e.id}" aria-label="Editar">✎</button><button class="x" data-a="xdev:" data-i="${e.id}" data-o="🗑" aria-label="Borrar">🗑</button>`}</div>${sp?`<div class="row" style="margin-top:8px"><button class="chip" data-a="xopsp:${sp.id}">${esc(spIc(sp)+' '+sp.name)}</button></div>`:''}${e.note?`<div class="mu" style="margin-top:6px">${esc(e.note)}</div>`:''}</div>`};
+ const form=ev?`<div class="card"><div class="sec" style="margin:0 0 8px">${ev.id?'Editar plan':'Nuevo plan'}</div><div class="row"><input id="cal_t" placeholder="¿Qué vamos a hacer? (ej: cena en…)" value="${esc(ev.title)}"></div><div class="row" style="margin-top:8px"><input id="cal_d" type="date" value="${esc(ev.date)}"><input id="cal_h" type="time" value="${esc(ev.time)}" style="max-width:130px"></div><div class="row" style="margin-top:8px"><select id="cal_p" style="flex:1"><option value="">📍 Sin lugar</option>${data.spots.map(x=>`<option value="${x.id}" ${ev.spot==x.id?'selected':''}>${esc(spIc(x)+' '+x.name)}</option>`).join('')}</select></div><div class="row" style="margin-top:8px"><input id="cal_n" placeholder="Nota (opcional)" value="${esc(ev.note)}"></div><div class="row" style="margin-top:10px"><button class="pri" data-a="xsaveev:">Guardar</button><button data-a="xcancelev:">Cancelar</button></div></div>`:'';
+ const nw=new Date(),au=[0,1,2].flatMap(i=>{const d=new Date(nw.getFullYear(),nw.getMonth()+i,1);return autoMonth(d.getFullYear(),d.getMonth())}),up=[...data.events,...au].filter(e=>e.date>=td).sort(cmpEv).slice(0,5);
+ return hd('Calendario')+`<div class="card"><div class="row" style="justify-content:space-between"><button data-a="xcm:-1" aria-label="Mes anterior">‹</button><b style="font-size:1.1rem;text-transform:capitalize">${MES[cs.m]} ${cs.y}</b><button data-a="xcm:1" aria-label="Mes siguiente">›</button></div><div class="row" style="justify-content:center;margin:8px 0"><button class="chip" data-a="xct:">Hoy</button></div><div class="cal">${['L','M','X','J','V','S','D'].map(x=>`<div class="dh">${x}</div>`).join('')}${cells}</div></div>`
+ +`<div class="sec" style="text-transform:capitalize">${lf(cs.sel)}</div>`+(evs.length?evs.map(evCard).join(''):'<p class="mu" style="margin:6px 0">Nada planeado este día.</p>')+(ev?'':`<button class="pri" data-a="xevn:" style="margin-top:6px">+ Planear algo</button>`)+form
+ +(up.length?`<div class="sec">Próximos planes</div>${up.map(e=>`<div class="it" data-a="xday:${e.date}" style="cursor:pointer"><span class="tag">${sh(e.date)}</span><span class="t">${esc(e.title)}</span>${e.time?`<span class="mu">${esc(e.time)}</span>`:''}</div>`).join('')}`:'')}
+function rouletteV(){
+ const all=rlAll();
+ if(all.length<2)return hd(rlT(),1)+`<div class="card" style="text-align:center">Agrega al menos 2 ${rl.src=='spots'?'lugares':'elementos'} para usar la ruleta.${rl.src=='spots'?'<div class="row" style="justify-content:center;margin-top:10px"><button class="pri" data-a="xnew:">+ Agregar lugar</button></div>':''}</div>`;
+ if(!rl.sel){const pn=all.filter(x=>!x.done);rl.sel=new Set((pn.length>=2?pn:all).map(x=>x.id))}
+ const L=all.filter(x=>rl.sel.has(x.id)),n=L.length,a=360/n;
+ const pt=(g,r)=>{const t=g*Math.PI/180;return[(r*Math.sin(t)).toFixed(2),(-r*Math.cos(t)).toFixed(2)]};
+ const cols=['var(--ac)','var(--ac2)','color-mix(in srgb,var(--ac) 55%,#fff)','color-mix(in srgb,var(--ac2) 55%,#fff)'];
+ const fs=n<=6?11:n<=10?9:7.5,mx=n<=6?16:n<=10?12:9;
+ const sl=n<2?'':L.map((x,i)=>{const a0=i*a,[x0,y0]=pt(a0,98),[x1,y1]=pt(a0+a,98),c=a0+a/2;const col=(i==n-1&&i%4==0)?cols[2]:cols[i%4];const nm=(x.name||'').length>mx?x.name.slice(0,mx-1)+'…':x.name;const lab=n>14?spIc(x):spIc(x)+' '+nm;const tr=c<=180?`rotate(${c-90})`:`rotate(${c+90})`;return `<path d="M0 0 L${x0} ${y0} A98 98 0 ${a>180?1:0} 1 ${x1} ${y1} Z" style="fill:${col};stroke:var(--sf);stroke-width:1.5"/><text transform="${tr}" x="${c<=180?88:-88}" text-anchor="${c<=180?'end':'start'}" dy=".35em" style="font-size:${fs}px;font-weight:600;fill:#fff;stroke:rgba(0,0,0,.35);stroke-width:.5px;paint-order:stroke">${esc(lab)}</text>`}).join('');
+ const w=rl.winner&&all.find(x=>x.id==rl.winner);
+ return hd(rlT(),1)+`<div class="card"><div class="sec" style="margin:0 0 8px">¿Entre cuáles elegimos?</div><div class="row" style="margin-bottom:10px"><button class="chip" data-a="xrs:pend">Por visitar</button><button class="chip" data-a="xrs:all">Todos</button>${rl.src=='spots'?'<button class="chip" data-a="xrs:resto">🍽️ Restaurantes</button><button class="chip" data-a="xrs:cafe">☕ Cafeterías</button>':''}<button class="chip" data-a="xrs:none">Ninguno</button></div><div class="row">${all.map(x=>`<button class="chip ${rl.sel.has(x.id)?'on':''}" data-a="xrt:${x.id}">${esc(spIc(x)+' '+x.name)}</button>`).join('')}</div></div>`
+ +(n<2?'<p class="mu" style="text-align:center">Elige al menos 2 lugares.</p>':`<div class="card" style="text-align:center"><div style="position:relative;width:min(100%,320px);margin:14px auto"><div class="ptr"></div><div id="wh" style="transform:rotate(${rl.rot}deg)"><svg viewBox="-100 -100 200 200" style="display:block;width:100%">${sl}<circle r="9" style="fill:var(--sf);stroke:var(--bd)"/></svg></div></div><button class="bigb" style="width:100%;max-width:320px;margin:0 auto" data-a="xspin:">🎡 Girar la ruleta</button></div>`)
+ +(w?`<div class="card" id="rres" style="text-align:center"><div class="eyebrow">Les tocó</div><div class="pcv" style="height:150px;margin-top:8px">${di(w.img)?`<img src="${esc(w.img)}" alt="">`:esc(spIc(w))}</div><div style="font-size:1.3rem;font-weight:600">${esc(w.name)}</div>${w.addr?`<div class="mu">📍 ${esc(w.addr)}</div>`:''}<div class="row" style="justify-content:center;margin-top:12px">${rl.src=='spots'?`<button class="pri" data-a="xplan:" data-i="${w.id}">📅 Planear ir</button><button data-a="xrsv:" data-i="${w.id}">Ver lugar</button>`:`<button class="pri" data-a="tg:" data-i="${w.id}">${w.done?'↩ Desmarcar':'✓ Marcar hecho'}</button>`}<button data-a="xspin:">Girar otra vez</button></div></div>`:'')}
+function spinRl(){
+ if(!rl||rl.spin||!rl.sel)return;const L=rlAll().filter(x=>rl.sel.has(x.id));if(L.length<2)return;
+ const n=L.length,a=360/n,w=Math.floor(Math.random()*n),c=(w+.5)*a+(Math.random()-.5)*a*.7,tgt=Math.ceil(rl.rot/360)*360+1800+((360-c)%360),g=$('#wh');if(!g)return;
+ rl.spin=1;rl.winner=null;const r=$('#rres');if(r)r.remove();
+ g.style.transition='transform 4.2s cubic-bezier(.12,.7,.1,1)';rl.rot=tgt;g.getBoundingClientRect();g.style.transform='rotate('+tgt+'deg)';
+ setTimeout(()=>{if(!rl)return;rl.spin=0;rl.winner=L[w].id;if(V=='roulette')render(1)},4400)}
+function placesV(){
+ const legacy=data.items.filter(i=>i.cat=='lugares');
+ const F={todos:['Todos',()=>1],pend:['Por visitar',s=>!s.done],vis:['Visitados',s=>s.done],resto:['🍽️ Restaurantes',s=>s.type=='resto'],cafe:['☕ Cafeterías',s=>s.type=='cafe']};
+ const L=data.spots.filter((F[plf]||F.todos)[1]);
+ const tile=s=>{const t=TY[s.type]||TY.lugar,mn=hasMenu(s.type)&&((s.menu||[]).length||s.menuImg),nx=data.events.filter(e=>e.spot==s.id&&e.date>=today()).sort(cmpEv)[0];return `<div class="tile card" data-a="xsv:" data-i="${s.id}" style="cursor:pointer">${stks(s)}<div class="pcv">${di(s.img)?`<img src="${esc(s.img)}" alt="">`:esc(s.emoji||t.e)}</div><b>${esc(s.name)}</b><span>${s.addr?'📍 '+esc(s.addr):'Sin ubicación aún'}</span><div class="row" style="margin-top:6px"><span class="tag">${t.e} ${t.l}</span>${s.done?'<span class="tag">✓ Visitado</span>':''}${nx?`<span class="tag">📅 ${sh(nx.date)}</span>`:''}${mn?'<span class="tag">Menú</span>':''}</div></div>`};
+ const add=`<button class="tile card" style="border-style:dashed;justify-content:center" data-a="xnew:"><i class="ic" style="font-size:1.8rem">+</i><b>Agregar lugar</b><span>Con foto, ubicación, mapa y menú</span></button>`;
+ return hd('Lugares donde ir')+`<div class="row" style="justify-content:center;margin-bottom:6px"><button class="pri" data-a="xrl:">🎡 Ruleta</button>${Object.entries(F).map(([k,v])=>`<button class="chip ${plf==k?'on':''}" data-a="xfl:${k}">${v[0]}</button>`).join('')}</div><div class="grid">${L.map(tile).join('')}${add}</div>`+(legacy.length?`<div class="sec">De tu lista anterior</div><p class="sub">Lugares que anotaste antes de las tarjetas.</p>${itemsV('lugares',1)}`:'')}
+
+function spotV(){
+ const ex=sid&&sid!='new'?data.spots.find(x=>x.id==sid):null;
+ if(sid!='new'&&!ex)return hd('Lugar',1)+'<p class="mu" style="text-align:center">Cargando…</p>';
+ const d=sd||ex||{type:'lugar'},t=TY[d.type]||TY.lugar,et=ex?(TY[ex.type]||TY.lugar):t;
+ const nxt=ex?data.events.filter(e=>e.spot==ex.id&&e.date>=today()).sort(cmpEv)[0]:null;
+ const hero=ex?`<div class="card" style="padding:0;overflow:hidden"><div class="pcv" style="height:200px;border-radius:0;margin:0;font-size:4rem">${di(ex.img)?`<img src="${esc(ex.img)}" alt="">`:esc(ex.emoji||et.e)}</div><div style="padding:16px 18px"><div class="row"><b style="font-size:1.25rem">${esc(ex.name)}</b><span class="tag">${et.e} ${et.l}</span>${ex.done?'<span class="tag">✓ Visitado</span>':''}${nxt?`<span class="tag">📅 ${sh(nxt.date)}</span>`:''}</div>${ex.addr?`<div class="mu" style="margin-top:4px">📍 ${esc(ex.addr)}</div>`:''}${ex.note?`<p style="margin:10px 0 0">${esc(ex.note)}</p>`:''}<div class="row" style="margin-top:14px"><button class="pri" data-a="xmap:">🗺️ Ver mapa</button><button data-a="xmaps:">Abrir en Maps ↗</button><button data-a="xplan:">📅 Planear ir</button><button data-a="xmem:">📖 Guardar recuerdo</button><button data-a="xvis:">${ex.done?'Marcar por visitar':'Marcar visitado'}</button></div></div></div>`:'';
+ const menu=ex&&hasMenu(ex.type)?`<div class="card"><div class="sec" style="margin:0 0 6px">Menú</div>${ex.menuImg?`<img class="pv" style="height:auto;max-height:360px;object-fit:contain;background:var(--sf)" src="${esc(ex.menuImg)}" alt="">`:''}<div class="row" style="margin-bottom:8px"><label class="chip" style="cursor:pointer">📷 ${ex.menuImg?'Cambiar':'Subir'} foto de la carta<input id="fmi" type="file" accept="image/*" hidden></label>${ex.menuImg?'<button class="x" data-a="xmx:">Quitar foto</button>':''}${okUrl(ex.menuUrl)?`<a href="${esc(ex.menuUrl)}" target="_blank" rel="noopener">Ver carta online ↗</a>`:''}</div>${(ex.menu||[]).map(m=>`<div class="it"><span class="t">${esc(m.n)}</span>${m.p?`<span class="tag">${esc(m.p)}</span>`:''}<button class="x" data-a="xdm:" data-i="${m.id}" data-o="🗑">🗑</button></div>`).join('')||'<p class="mu">Aún no hay platos. Agrega lo que quieras pedir o anota la carta.</p>'}<div class="row" style="margin-top:10px"><input id="m_n" placeholder="Plato o bebida"><input id="m_p" placeholder="Precio" style="max-width:110px"><button class="pri" data-a="xadd:">+</button></div></div>`:'';
+ const form=`<div class="card"><div class="sec" style="margin:0 0 10px">${ex?'Editar datos':'Nuevo lugar'}</div><div class="pcv" style="height:150px">${di(d.img)?`<img src="${esc(d.img)}" alt="">`:esc(d.emoji||t.e)}</div><div class="row"><label class="chip" style="cursor:pointer">📷 ${d.img?'Cambiar foto':'Elegir foto'}<input id="fsp" type="file" accept="image/*" hidden></label>${d.img?'<button class="chip" data-a="xph:">Quitar foto</button>':''}</div><div class="row" style="margin-top:12px"><input id="s_e" style="max-width:70px" placeholder="${t.e}" value="${esc(d.emoji)}"><input id="s_n" placeholder="Nombre del lugar" value="${esc(d.name)}"></div><div class="row" style="margin-top:10px">${Object.entries(TY).map(([k,v])=>`<button class="chip ${(d.type||'lugar')==k?'on':''}" data-a="xty:${k}">${v.e} ${v.l}</button>`).join('')}</div><div class="row" style="margin-top:10px"><input id="s_a" placeholder="Ubicación o dirección (ej: 1 Norte 1234, Talca)" value="${esc(d.addr)}"></div><div class="row" style="margin-top:8px"><input id="s_u" placeholder="Link de Google Maps (opcional)" value="${esc(d.url)}"></div><p class="mu" style="margin:4px 0 0">Si pegas un link corto de Maps, escribe también la dirección para que el mapa de aquí lo ubique.</p><div class="row" style="margin-top:8px"><input id="s_t" placeholder="Nota (por qué queremos ir, qué pedir…)" value="${esc(d.note)}"></div>${hasMenu(d.type)?`<div class="row" style="margin-top:8px"><input id="s_mu" placeholder="Link de la carta o menú online (opcional)" value="${esc(d.menuUrl)}"></div>`:''}${!ex&&hasMenu(d.type)?'<p class="mu">El menú se agrega después de guardar.</p>':''}<p class="mu" id="msg"></p><div class="row" style="margin-top:6px"><button class="pri" data-a="xsave:">Guardar</button><button data-a="xcancel:">Cancelar</button>${ex?'<button class="x" data-a="xdel:" data-o="🗑 Borrar lugar">🗑 Borrar lugar</button>':''}</div></div>`;
+ return hd(esc(ex?ex.name:'Nuevo lugar'),1)+hero+menu+form}
+async function saveSpot(){
+ const o=rd();if(!o.name){msg('Ponle un nombre al lugar');return}
+ const c={emoji:o.emoji||'',name:o.name,type:o.type||'lugar',addr:o.addr||'',url:fixUrl(o.url),note:o.note||'',img:o.img||'',menuUrl:fixUrl(o.menuUrl)};
+ if(sid=='new'){
+  const full={...c,done:false,menu:[]};
+  if(D){const r=await D.collection('spots').add(full).catch(er);sid=r&&r.id?r.id:null}else{const id=U();data.spots.push({id,...full});sid=id}
+  if(sid){sd={...full}}else{V='places';sd=null}
+ }else{await upd('spots',sid,c);sd={...sd,...c}}
+ toast('Guardado ✓');render(1)}
+function addDish(){const n=val('m_n');if(!n)return;const s=data.spots.find(x=>x.id==sid);if(!s)return;const p=val('m_p');$('#m_n').value='';$('#m_p').value='';upd('spots',sid,{menu:[...(s.menu||[]),{id:U(),n,p}]});const f=$('#m_n');if(f)f.focus()}
+
+function soonV(){
+ const e=ed&&ed!='new'?data.soon.find(x=>x.id==ed):{};
+ const form=ed?`<div class="card"><div class="row"><input id="se" style="max-width:70px" placeholder="✨" value="${esc(e.emoji)}"><input id="st" placeholder="Título" value="${esc(e.title)}"></div><div class="row" style="margin-top:8px"><input id="sn" placeholder="Nota o idea" value="${esc(e.note)}"></div><div class="row" style="margin-top:10px"><button class="pri" data-a="ss:">Guardar</button><button data-a="cancel:">Cancelar</button></div></div>`:`<button class="pri" data-a="new:">+ Agregar espacio</button>`;
+ return hd('Próximamente')+form+(data.soon.length?'':'<p class="mu">Aquí irán las páginas que aún no están listas.</p>')+`<div class="grid">${data.soon.map(s=>`<div class="card" style="border-style:dashed">${di(s.img)?`<img class="pv" src="${esc(s.img)}" alt="">`:`<div style="font-size:34px">${esc(s.emoji||'✨')}</div>`}${stks(s)}<b>${esc(s.title)}</b><div class="mu">${esc(s.note)}</div><div class="row"><button class="x" data-a="dec:soon" data-i="${s.id}" title="Imagen y stickers">${IC.sticker}</button><button class="x" data-a="ed:" data-i="${s.id}">✎</button><button class="x" data-a="ds:" data-i="${s.id}" data-o="🗑">🗑</button></div></div>`).join('')}</div>`}
+
+function cfgV(){
+ const th=Object.entries(THEMES).map(([k,[n,a,b]])=>`<button class="${pref.theme==k?'on':''}" data-a="theme:${k}">${pref.theme==k?'<span class="ck">✓</span>':''}<span><i style="background:${a}"></i><i style="background:${b}"></i></span>${n}</button>`).join('');
+ const ch=(o,k)=>Object.entries(o).map(([v,l])=>`<button class="chip ${pref[k]==v?'on':''}" data-a="${k}:${v}">${l}</button>`).join(' ');
+ const hasBg=pref.bgImg||pref.bgUrl;
+ const pr=['y','e'].map(k=>`<button class="card" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 16px;margin:0" data-a="dec:profiles" data-i="${k}">${av(k)}<b>${esc(PF(k).name)}</b></button>`).join('');
+ return hd('Configuración')+`<div class="sec" style="margin-top:8px">Perfiles</div><p class="sub">Nombre y foto de cada uno.</p><div class="grid" style="margin-top:12px;gap:12px">${pr}</div>
+ <div class="sec">Estilo de la app</div><p class="sub">Elige la paleta de colores con la que se ve toda la página.</p><div class="th">${th}</div>
+ <div class="sec">Tamaño y accesibilidad</div><p class="sub">Ajusta el tamaño base de los textos sin cambiar el diseño de las tarjetas.</p><div class="row" style="margin-top:10px">${ch({compacto:'Compacto',normal:'Normal',grande:'Grande'},'size')}</div>
+ <div class="sec">Fondo de la página</div><p class="sub">Usa una imagen propia. Se aplica una capa suave para que los textos sigan siendo legibles.</p><div class="row" style="margin-top:10px">${ch(BGS,'bg')}${hasBg?`<button class="chip ${pref.bg=='imagen'?'on':''}" data-a="bg:imagen">Mi imagen</button>`:''}</div>
+ <label class="bigb">Elegir imagen<input id="fbg" type="file" accept="image/*" hidden></label>
+ <div class="row" style="margin-top:12px"><input id="bu" placeholder="O pega un link de imagen (https://…)"><button data-a="bgu:">Usar link</button>${hasBg?'<button data-a="bgx:">Quitar</button>':''}</div><p class="mu" id="msg"></p>
+ <div class="sec">Stickers</div><p class="sub">Súbelos una vez y ponlos donde quieras.</p>
+ <label class="bigb">Subir stickers<input id="fst" type="file" accept="image/*" multiple hidden></label>
+ <button class="bigb alt" data-a="stm:">Poner stickers en las páginas</button>
+ <div class="sg">${data.stickers.filter(x=>di(x.src)).map(x=>`<div><img src="${esc(x.src)}" alt=""><button class="x" data-a="ds2:" data-i="${x.id}" data-o="✕">✕</button></div>`).join('')}</div>`}
+let ready=0;
+function render(force){if(drag){pend=1;return}if(V=='spot'&&sd&&$('#s_n'))sd=rd();if(V=='memories'&&mm&&$('#mm_t'))mm=rdMm();if(V=='vault'&&vt&&vt.open&&$('#vs_t'))vt.f=rdVt();if(V=='roulette'&&rl&&rl.spin){pend=1;return}if(V=='cal'&&ev&&$('#cal_t'))ev=rdEv();
+ const a=document.activeElement;
+ if(!force&&a&&/^(INPUT|TEXTAREA)$/.test(a.tagName)&&a.value&&!a.closest('.md')){pend=1;return}
+ pend=0;
+ syncHash();const m={home:homeV,cal:calV,roulette:rouletteV,search:searchV,projects:projV,lists:listV,places:placesV,spot:spotV,secret:secretV,soon:soonV,cfg:cfgV,memories:memV,vault:vaultV};
+ $('#app').innerHTML=m[V]()+pl();
+ $('#fr').innerHTML=frame?`<div class="fr"><iframe src="${esc(frame)}" allow="autoplay; fullscreen"></iframe><div class="frb">${fext?`<a class="frx" href="${esc(fext)}" target="_blank" rel="noopener">Abrir en Maps ↗</a>`:''}<button class="frx" data-a="fx:">✕ Cerrar</button></div></div>`:'';
+ $('#md').innerHTML=mdV()+trayV();if(V=='search')runSearch();
+}
+function sure(b,f){if(b.dataset.s)return f();b.dataset.s=1;b.textContent='¿Seguro?';setTimeout(()=>{b.dataset.s='';b.textContent=b.dataset.o||'✕'},3000)}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]');if(!b)return;
+ const [a,v]=b.dataset.a.split(/:(.*)/s),i=b.dataset.i;
+ const go=x=>{V=x;cat=null;pf=null;ed=null;ev=null;render(1)};
+ if(a=='go'){if(v=='search'){q=val('q')}go(v)}
+ else if(a=='cat'){V='lists';cat=v;render(1)}
+ else if(a=='up'){if(V=='secret'||V=='vault'){V='search';vt=null;render(1)}else if(V=='roulette'){V=rl&&rl.src!='spots'?'lists':'places';rl=null;render(1)}else if(V=='spot'){V=rtn||'places';rtn=null;sd=null;sid=null;render(1)}else if(V=='lists'&&cat){cat=(data.cats.find(c=>c.id==cat)||{}).parent||null;render(1)}else if(V=='lists'&&pf){pf=null;render(1)}else go('home')}
+ else if(a=='theme'||a=='bg'||a=='size'){pref[a]=v;applyPref();render(1)}
+ else if(a=='open'){fext='';frame=okUrl(v)||null;render(1)}
+ else if(a=='fx'){frame=null;fext='';render(1)}
+ else if(a=='new'){ed='new';render(1)}else if(a=='ed'){ed=i;render(1)}else if(a=='cancel'){ed=null;render(1)}
+ else if(a=='sp'){const o={emoji:val('pe'),title:val('pt'),desc:val('pd'),url:okUrl(val('pl')),kw:val('pkw')};if(!o.title)return;const k=ed;ed=null;k=='new'?put('projects',o):upd('projects',k,o)}
+ else if(a=='dp')sure(b,()=>del('projects',i));
+ else if(a=='ss'){const o={emoji:val('se'),title:val('st'),note:val('sn')};if(!o.title)return;const k=ed;ed=null;k=='new'?put('soon',o):upd('soon',k,o)}
+ else if(a=='ds')sure(b,()=>del('soon',i));
+ else if(a=='sc'){const n=val('cn');if(n)put('cats',{name:n,emoji:val('ce'),parent:cat||'',owner:pf})}
+ else if(a=='qc'){const [em,...r]=v.split(' ');put('cats',{name:r.join(' '),emoji:em,parent:'',owner:pf})}
+ else if(a=='dc')sure(b,()=>{const c=data.cats.find(x=>x.id==cat),p=c&&c.parent||null;delCat(cat);cat=p;render(1)});
+ else if(a=='ai')addItem(v);
+ else if(a=='tg'){const it=data.items.find(x=>x.id==i);if(it)upd('items',i,{done:!it.done})}
+ else if(a=='di')sure(b,()=>del('items',i));
+ 
+ 
+ else if(a=='dec'){md={c:v,id:i};render(1)}
+ else if(a=='mx'){if(e.target==b||b.tagName=='BUTTON'){md=null;render(1)}}
+ else if(a=='stt'){const d=data[md.c].find(x=>x.id==md.id),l=d.stk||[];upd(md.c,md.id,{stk:l.includes(v)?l.filter(x=>x!=v):[...l,v]})}
+ else if(a=='dimg')upd(md.c,md.id,{img:''})
+ else if(a=='ds2')sure(b,()=>del('stickers',i))
+ else if(a=='bgu'){const u=okUrl(val('bu'));if(!u)return msg('Pega un link que empiece con https://');const im=new Image();im.onload=()=>{pref.bgUrl=u;pref.bgImg='';pref.bg='imagen';applyPref();render(1)};im.onerror=()=>msg('No se pudo cargar ese link aquí. Descarga la imagen y súbela con “Elegir imagen”.');im.src=u}
+ else if(a=='bgx'){pref.bgImg='';pref.bgUrl='';pref.bg='degradado';applyPref();render(1)}
+ else if(a=='pf'){pf=v;cat=null;render(1)}
+ else if(a=='sm'){sm=sm?null:{sel:null,pick:null};render(1)}
+ else if(a=='stm'){V='home';cat=null;pf=null;sm={sel:null,pick:null};render(1)}
+ else if(a=='sel'){sm.sel=sm.sel==v?null:v;sm.pick=null;render(1)}
+ else if(a=='szs'){const q0=data.placed.find(x=>x.id==sm.pick);if(q0)upd('placed',q0.id,{w:Math.max(30,Math.min(300,Math.round((q0.w||84)*(v=='+'?1.2:.83))))})}
+ else if(a=='dps'){del('placed',sm.pick);sm.pick=null}
+ else if(a=='smcfg'){sm=null;V='cfg';render(1)}
+ else if(a=='spn'){saveProf(md.id,{name:val('pn')||PF(md.id).name,bday:val('pb')});md=null;render(1)}
+ 
+});
+function addItem(cid){const t=val('it');if(!t)return;put('items',{cat:cid,text:t,done:false});$('#it').value='';$('#it').focus()}
+document.addEventListener('input',e=>{if(e.target.id=='q'){q=e.target.value;runSearch()}});
+document.addEventListener('keydown',e=>{if(e.key!='Enter')return;if(e.target.id=='it'){const b=document.querySelector('[data-a^="ai:"]');if(b)addItem(b.dataset.a.slice(3))}if(e.target.id=='q')runSearch()});
+document.addEventListener('focusout',()=>{if(pend)setTimeout(()=>{const a=document.activeElement;if(!(a&&/^(INPUT|TEXTAREA)$/.test(a.tagName)&&a.value))render(1)},300)});
+document.addEventListener('change',async e=>{const t=e.target,f=t.files;if(!f||!f.length)return;if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();msg('Guardando…');
+ try{
+  if(t.id=='fst'){for(const x of f){let u=await rz(x,240,'image/webp',.85);if(u.length>190000)u=await rz(x,150,'image/webp',.8);await put('stickers',{src:u})}}
+  else if(t.id=='fbg'){pref.bgImg=await rz(f[0],1400,'image/jpeg',.8);pref.bgUrl='';pref.bg='imagen';applyPref();render(1)}
+  else if(t.id=='fsp'){sd=rd();sd.img=await rzFit(f[0],800,100000);render(1)}
+  else if(t.id=='fmi'&&sid){await upd('spots',sid,{menuImg:await rzFit(f[0],1000,100000)})}
+  else if(t.id=='fcv'&&md){await upd(md.c,md.id,{img:await rzFit(f[0],700,100000)})}
+  else if(t.id=='fmm'&&mm){mm=rdMm();mm.img=await rzFit(f[0],800,100000);render(1)}
+  else if(t.id=='fvs'&&vt){vt.f=rdVt();vt.f.img=await rzFit(f[0],800,100000);render(1)}
+  else if(t.id=='fpf'&&md){const nm=val('pn');await saveProf(md.id,{photo:await rz(f[0],320,'image/jpeg',.82),...(nm?{name:nm}:{})})}
+ }catch(x){msg('No se pudo usar esa imagen.')}
+ t.value=''});
+document.addEventListener('click',e=>{if(!sm||e.target.closest('#tray,#fab,.ps'))return;e.preventDefault();e.stopPropagation();if(!sm.sel)return;const r=$('#app').getBoundingClientRect();put('placed',{k:pk(),s:sm.sel,x:+((e.clientX-r.left)/r.width*100).toFixed(2),y:Math.round(e.clientY-r.top),w:84})},true);
+document.addEventListener('pointerdown',e=>{const t=sm&&e.target.closest('.ps');if(!t)return;e.preventDefault();const id=t.dataset.p,r=$('#app').getBoundingClientRect();let mv=0;drag=1;
+ const f=v=>{mv=1;t.style.left=((v.clientX-r.left)/r.width*100)+'%';t.style.top=(v.clientY-r.top)+'px'};
+ const u=v=>{removeEventListener('pointermove',f);removeEventListener('pointerup',u);drag=0;if(mv)upd('placed',id,{x:+((v.clientX-r.left)/r.width*100).toFixed(2),y:Math.round(v.clientY-r.top)});else{sm.pick=sm.pick==id?null:id;render(1)}};
+ addEventListener('pointermove',f);addEventListener('pointerup',u)});
+
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]');if(!b||sm)return;
+ const [a,v]=b.dataset.a.split(/:(.*)/s),i=b.dataset.i;if(a[0]!='x')return;
+ const ex=()=>data.spots.find(x=>x.id==sid);
+ if(a=='xsv'){const s=data.spots.find(x=>x.id==i);if(!s)return;sid=i;sd={...s};rtn=null;V='spot';cat=null;pf=null;render(1)}
+ else if(a=='xnew'){sid='new';sd={type:'lugar'};V='spot';render(1)}
+ else if(a=='xfl'){plf=v;render(1)}
+ else if(a=='xty'){sd=rd();sd.type=v;render(1)}
+ else if(a=='xph'){sd=rd();sd.img='';render(1)}
+ else if(a=='xcancel'){if(sid=='new'){V='places';sid=null;sd=null}else{sd={...ex()};['s_e','s_n','s_a','s_u','s_t','s_mu'].forEach(k=>{const el=$('#'+k);if(el)el.id=''})}render(1)}
+ else if(a=='xsave')saveSpot();
+ else if(a=='xdel')sure(b,()=>{const k=sid;V='places';sid=null;sd=null;del('spots',k);render(1)});
+ else if(a=='xvis'){const s=ex();if(s)upd('spots',sid,{done:!s.done})}
+ else if(a=='xmap'){const s=ex();if(s){fext=mapOut(s);frame=mapEmb(s);render(1)}}
+ else if(a=='xmaps'){const s=ex();if(s)window.open(mapOut(s),'_blank','noopener')}
+ else if(a=='xadd')addDish();
+ else if(a=='xdm'){const s=ex();if(s)sure(b,()=>upd('spots',sid,{menu:(s.menu||[]).filter(x=>x.id!=i)}))}
+ else if(a=='xmx')upd('spots',sid,{menuImg:''});
+ else if(a=='xrl'){rl={src:'spots',sel:null,rot:0,spin:0,winner:null};V='roulette';render(1)}
+ else if(a=='xrt'){if(!rl||rl.spin)return;rl.sel.has(v)?rl.sel.delete(v):rl.sel.add(v);rl.winner=null;render(1)}
+ else if(a=='xrs'){if(!rl||rl.spin)return;const f={pend:x=>!x.done,all:x=>1,resto:x=>x.type=='resto',cafe:x=>x.type=='cafe',none:x=>0}[v]||(x=>1);rl.sel=new Set(rlAll().filter(f).map(x=>x.id));rl.winner=null;render(1)}
+ else if(a=='xspin')spinRl();
+ else if(a=='xrsv'){const x=data.spots.find(y=>y.id==i);if(x){sid=i;sd={...x};rtn='roulette';V='spot';render(1)}}
+ else if(a=='xopsp'){const x=data.spots.find(y=>y.id==v);if(x){sid=v;sd={...x};rtn='cal';V='spot';render(1)}}
+ else if(a=='xplan'){const id=i||sid;if(!cs){const n=new Date();cs={y:n.getFullYear(),m:n.getMonth(),sel:today()}}ev={date:cs.sel||today(),spot:id||'',title:'',time:'',note:''};V='cal';render(1)}
+ else if(a=='xcm'){const d=new Date(cs.y,cs.m+(+v),1);cs={y:d.getFullYear(),m:d.getMonth(),sel:cs.sel};render(1)}
+ else if(a=='xct'){const n=new Date();cs={y:n.getFullYear(),m:n.getMonth(),sel:today()};render(1)}
+ else if(a=='xday'){const d=pd(v);cs={y:d.getFullYear(),m:d.getMonth(),sel:v};render(1)}
+ else if(a=='xevn'){ev={date:cs.sel,spot:'',title:'',time:'',note:''};render(1)}
+ else if(a=='xeed'){const x=data.events.find(y=>y.id==i);if(x){ev={...x};render(1)}}
+ else if(a=='xcancelev'){ev=null;render(1)}
+ else if(a=='xsaveev'){const o=rdEv(),sp=o.spot?data.spots.find(x=>x.id==o.spot):null,title=o.title||(sp?'Ir a '+sp.name:'');if(!title||!o.date){toast('Falta el nombre o la fecha');return}const doc={title,date:o.date,time:o.time||'',spot:o.spot||'',note:o.note||''},id=ev.id,d=pd(doc.date);ev=null;cs={y:d.getFullYear(),m:d.getMonth(),sel:doc.date};if(id)upd('events',id,doc);else put('events',doc);render(1)}
+ else if(a=='xdev')sure(b,()=>del('events',i));
+ else if(a=='xr')goRes(v);
+  else if(a=='xrlc'){rl={src:v,sel:null,rot:0,spin:0,winner:null};V='roulette';render(1)}
+  else if(a=='xmmnew'){mm={date:today(),title:'',note:'',spot:'',img:''};render(1)}
+  else if(a=='xmmed'){const x=data.memories.find(y=>y.id==i);if(x){mm={...x};render(1)}}
+  else if(a=='xmmcancel'){mm=null;render(1)}
+  else if(a=='xmmph'){mm=rdMm();mm.img='';render(1)}
+  else if(a=='xmmsave'){const o=rdMm();if(!o.title){msg('Ponle un título');return}const doc={title:o.title,date:o.date||today(),note:o.note||'',spot:o.spot||'',img:o.img||''},id=o.id;mm=null;id?upd('memories',id,doc):put('memories',doc);toast('Guardado ✓');render(1)}
+  else if(a=='xmmdel')sure(b,()=>del('memories',i));
+  else if(a=='xmem'){const sp=ex();if(sp){mm={date:today(),title:'Salida a '+sp.name,note:'',spot:sp.id,img:''};V='memories';render(1)}}
+  else if(a=='xlogo'){logoN++;clearTimeout(lt);lt=setTimeout(()=>{logoN=0},1500);if(logoN>=5){logoN=0;vt={open:0,h:'',f:{emoji:'💌'}};V='vault';render(1)}}
+  else if(a=='xvin'){const c=val('vk');if(c.length<3)return msg('Mínimo 3 caracteres');sha(c).then(h=>{vt.h=h;vt.open=1;render(1)})}
+  else if(a=='xvph'){vt.f=rdVt();vt.f.img='';render(1)}
+  else if(a=='xvsave'){const o=rdVt();if(!o.title||!o.kw){msg('Falta el título o las palabras clave');return}put('secrets',{emoji:o.emoji||'💌',title:o.title,kw:o.kw,msg:o.msg||'',img:o.img||'',h:vt.h});vt.f={emoji:'💌'};toast('Secreto guardado ✓');render(1)}
+  else if(a=='xvdel')sure(b,()=>del('secrets',i));
+ else if(a=='xq'){q=v;const el=$('#q');if(el)el.value=v;runSearch()}
+ else if(a=='xtab'){stab=v;runSearch()}
+});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&(e.target.id=='m_n'||e.target.id=='m_p'))addDish();if(e.key=='Enter'&&e.target.id=='vk'){const b=document.querySelector('[data-a="xvin:"]');if(b)b.click()}});
+IC.memories='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v11H7a3 3 0 0 1-3-3z"/><path d="M8 9h6M8 13h4"/></svg>';
+const mk=(y,m,d)=>new Date(y,m,Math.min(d,new Date(y,m+1,0).getDate()));
+const DESDE='2026-07-03';const SINCE=()=>DESDE;
+function autoMonth(y,m){const o=[],a=SINCE()?pd(SINCE()):null,add=(d,t)=>o.push({id:'a'+fd(d)+t.length,date:fd(d),title:t,auto:1});
+ if(a){const mo=(y-a.getFullYear())*12+m-a.getMonth();if(mo>0)add(mk(y,m,a.getDate()),mo%12?'💗 '+mo+' meses juntos':'🎉 Aniversario: '+mo/12+(mo==12?' año':' años'))}else add(mk(y,m,3),'💗 Mesversario');
+ ['y','e'].forEach(k=>{const b=(data.profiles.find(x=>x.id==k)||{}).bday;if(b){const d=pd(b);if(d.getMonth()==m)add(mk(y,m,d.getDate()),'🎂 Cumpleaños de '+PF(k).name)}});return o}
+function cdV(){const a=SINCE()?pd(SINCE()):null,n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate()),dd=a?a.getDate():3;let d=mk(t.getFullYear(),t.getMonth(),dd);if(d<t)d=mk(t.getFullYear(),t.getMonth()+1,dd);
+ const k=Math.round((d-t)/864e5),mo=a?(d.getFullYear()-a.getFullYear())*12+d.getMonth()-a.getMonth():0,lb=mo<1?'su mesversario':mo%12?'nuestros '+mo+' meses':'su aniversario de '+mo/12+(mo==12?' año':' años'),tg=a?Math.floor((t-a)/864e5):0;
+ return `<div class="cd">${tg>0?`<div class="mu">Llevamos ${tg} días juntos 💗</div>`:''}${k?`<div style="margin-top:6px"><b>${k}</b> día${k==1?'':'s'} para ${lb}</div><div class="mu">${d.getDate()} de ${MES[d.getMonth()]}</div>`:`<div style="margin-top:6px;font-size:1.3rem"><b>🎉 ¡Hoy es ${lb}!</b></div>`}</div>`}
+const rdMm=()=>{const o={...mm};[['mm_t','title'],['mm_d','date'],['mm_p','spot'],['mm_n','note']].forEach(([i,k])=>{const e=$('#'+i);if(e)o[k]=e.value.trim()});return o};
+function memV(){const e=mm,
+ form=e?`<div class="card"><div class="sec" style="margin:0 0 8px">${e.id?'Editar recuerdo':'Nuevo recuerdo'}</div>${di(e.img)?`<img class="pv" style="height:auto;max-height:260px" src="${esc(e.img)}" alt="">`:''}<div class="row"><label class="chip" style="cursor:pointer">📷 ${e.img?'Cambiar foto':'Agregar foto'}<input id="fmm" type="file" accept="image/*" hidden></label>${e.img?'<button class="chip" data-a="xmmph:">Quitar foto</button>':''}</div><div class="row" style="margin-top:8px"><input id="mm_t" placeholder="Título (ej: Nuestra primera cita)" value="${esc(e.title)}"></div><div class="row" style="margin-top:8px"><input id="mm_d" type="date" value="${esc(e.date)}"><select id="mm_p" style="flex:1"><option value="">📍 Sin lugar</option>${data.spots.map(x=>`<option value="${x.id}" ${e.spot==x.id?'selected':''}>${esc(spIc(x)+' '+x.name)}</option>`).join('')}</select></div><div class="row" style="margin-top:8px"><textarea id="mm_n" rows="3" placeholder="¿Qué pasó? ¿Qué sentiste?">${esc(e.note)}</textarea></div><p class="mu" id="msg"></p><div class="row"><button class="pri" data-a="xmmsave:">Guardar</button><button data-a="xmmcancel:">Cancelar</button></div></div>`:`<button class="pri" data-a="xmmnew:">+ Nuevo recuerdo</button>`,
+ L=data.memories.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ return hd('Recuerdos')+form+(L.length?'':'<p class="mu" style="margin-top:12px">Aquí va el diario de lo que vivimos.</p>')+L.map(m=>{const sp=m.spot&&data.spots.find(x=>x.id==m.spot);return `<div class="card mc"><div class="row"><span class="tag">${m.date?sh(m.date)+' '+pd(m.date).getFullYear():'Sin fecha'}</span><b style="flex:1">${esc(m.title)}</b><button class="x" data-a="xmmed:" data-i="${m.id}" aria-label="Editar">✎</button><button class="x" data-a="xmmdel:" data-i="${m.id}" data-o="🗑" aria-label="Borrar">🗑</button></div>${di(m.img)?`<img src="${esc(m.img)}" alt="">`:''}${m.note?`<p style="white-space:pre-wrap;margin:8px 0 0">${esc(m.note)}</p>`:''}${sp?`<div class="row" style="margin-top:8px"><button class="chip" data-a="xopsp:${sp.id}">${esc(spIc(sp)+' '+sp.name)}</button></div>`:''}</div>`}).join('')}
+const rlAll=()=>{if(!rl||rl.src=='spots')return data.spots;const c=data.cats.find(x=>x.id==rl.src)||{};return data.items.filter(i=>i.cat==rl.src).map(i=>({id:i.id,name:i.text,done:i.done,emoji:c.emoji||'🎯'}))};
+const rlT=()=>rl&&rl.src!='spots'?'Ruleta · '+((data.cats.find(c=>c.id==rl.src)||{}).name||'lista'):'Ruleta de lugares';
+async function sha(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('nos:'+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=5381;for(const c of 'nos:'+s)h=(h*33^c.charCodeAt(0))>>>0;return'f'+h}}
+const rdVt=()=>{const o={...vt.f};[['vs_e','emoji'],['vs_t','title'],['vs_k','kw'],['vs_m','msg']].forEach(([i,k])=>{const e=$('#'+i);if(e)o[k]=e.value.trim()});return o};
+function vaultV(){if(!vt)return'';
+ if(!vt.open)return hd('Zona secreta',1)+`<div class="card" style="text-align:center"><p>Escribe tu código personal. Cada uno tiene el suyo y solo ve los secretos que creó con él.</p><div class="row"><input id="vk" type="password" placeholder="Tu código" autocomplete="off"><button class="pri" data-a="xvin:">Entrar</button></div><p class="mu" id="msg"></p></div>`;
+ const f=vt.f,mine=data.secrets.filter(x=>x.h&&x.h==vt.h);
+ return hd('Zona secreta',1)+`<div class="card"><div class="sec" style="margin:0 0 8px">Nuevo mensaje secreto</div><p class="sub">Cuando la otra persona escriba una de las palabras clave en el buscador, verá este mensaje.</p>${di(f.img)?`<img class="pv" style="height:auto;max-height:240px" src="${esc(f.img)}" alt="">`:''}<div class="row"><label class="chip" style="cursor:pointer">📷 ${f.img?'Cambiar imagen':'Agregar imagen'}<input id="fvs" type="file" accept="image/*" hidden></label>${f.img?'<button class="chip" data-a="xvph:">Quitar imagen</button>':''}</div><div class="row" style="margin-top:8px"><input id="vs_e" style="max-width:70px" placeholder="💌" value="${esc(f.emoji)}"><input id="vs_t" placeholder="Título" value="${esc(f.title)}"></div><div class="row" style="margin-top:8px"><input id="vs_k" placeholder="Palabras clave (separadas por coma)" value="${esc(f.kw)}"></div><div class="row" style="margin-top:8px"><textarea id="vs_m" rows="4" placeholder="Tu mensaje…">${esc(f.msg)}</textarea></div><p class="mu" id="msg"></p><div class="row"><button class="pri" data-a="xvsave:">Guardar secreto</button></div></div><div class="sec">Mis secretos</div>${mine.map(x=>`<div class="it"><i class="gi">${esc(x.emoji||'💌')}</i><span class="t">${esc(x.title)}<br><span class="mu">${esc(x.kw)}</span></span><button class="x" data-a="xvdel:" data-i="${x.id}" data-o="🗑" aria-label="Borrar">🗑</button></div>`).join('')||'<p class="mu">Aún no has creado ninguno.</p>'}`}
+const HV=['home','search','projects','lists','places','cal','soon','cfg','memories'];
+const hv=h=>HV.includes(h)?h:h=='spot'&&sid?'spot':h=='roulette'&&rl?'roulette':h=='secret'&&sid2?'secret':'home';
+let hsk=0;const syncHash=()=>{const h=V=='home'?'':V;if(location.hash.slice(1)!==h){hsk=1;location.hash=h}};
+addEventListener('hashchange',()=>{if(hsk){hsk=0;return}V=hv(location.hash.slice(1));if(V!='lists'){cat=null;pf=null}ed=null;ev=null;frame=null;md=null;sm=null;if(V!='vault')vt=null;render(1)});
+V=hv(location.hash.slice(1));applyPref();render(1);
+(async()=>{
+ try{D=window.claude?await claude.use('db'):null}catch(e){D=null}
+ if(!D){render(1);return}
+ ['cats','items','projects','soon','stickers','placed','profiles','spots','secrets','events','memories'].forEach(n=>D.collection(n).onSnapshot(s=>{data[n]=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{}));
+ render(1);
+})();
+</script></body></html>
