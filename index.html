@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <meta name="theme-color" content="#fff5f7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="icon-192.png"><link rel="manifest" href="manifest.json">
-<title>Nosotros</title>
+<title>Nuestro rincón</title>
 <style>
 :root{--bg:#fff5f7;--fg:#4a3340;--mu:#8d7280;--bd:#f3d3dc;--sf:#fff;--ac:#e58aa5;--ac2:#b9a3e3;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -142,7 +142,8 @@ const data={cats:[],items:[],projects:[],soon:[],stickers:[],placed:[],profiles:
 let pref={theme:matchMedia('(prefers-color-scheme:dark)').matches?'oscuro':'pastel',bg:'degradado',size:'normal',bgImg:'',bgUrl:''};
 try{Object.assign(pref,JSON.parse(localStorage.getItem('nos-pref')||'{}'))}catch(e){}
 function applyPref(){const r=document.documentElement,u=pref.bgImg||pref.bgUrl;if(!THEMES[pref.theme])pref.theme='pastel';if(pref.bg=='imagen'&&!u)pref.bg='degradado';r.dataset.theme=pref.theme;r.dataset.bg=pref.bg;r.dataset.size=pref.size||'normal';if(u)r.style.setProperty('--bgimg','url("'+u.replace(/["\\\n]/g,'')+'")');try{localStorage.setItem('nos-pref',JSON.stringify(pref))}catch(e){}
- const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=getComputedStyle(r).getPropertyValue('--bg').trim()||'#fff5f7'}
+ const cs=getComputedStyle(r),g=k=>cs.getPropertyValue(k).trim(),hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),mx=(a,b,t)=>'#'+hx(a).map((v,i)=>Math.round(v*t+hx(b)[i]*(1-t)).toString(16).padStart(2,'0')).join(''),tc=document.querySelector('meta[name=theme-color]');
+ try{if(tc)tc.content=pref.bg=='degradado'?mx(mx(g('--ac'),g('--ac2'),.85),g('--bg'),.24):(g('--bg')||'#fff5f7')}catch(e){}}
 let tt;const toast=t=>{let e=$('#toast');if(!e){e=document.createElement('div');e.id='toast';document.body.appendChild(e)}e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>{e.style.display='none'},6000)};
 const er=e=>toast('No se pudo guardar'+(e&&(e.code||e.message)?' ('+(e.code||e.message)+')':''));
 const put=(n,o)=>{if(D)return pack(o).then(x=>D.collection(n).add(x)).catch(er);data[n].push({id:U(),...o});render(1)};

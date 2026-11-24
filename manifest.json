@@ -3,9 +3,9 @@
   "short_name": "Nosotros",
   "start_url": "./",
   "scope": "./",
-  "display": "fullscreen",
-  "background_color": "#fff5f7",
-  "theme_color": "#fff5f7",
+  "display": "standalone",
+  "background_color": "#f7dce5",
+  "theme_color": "#f7dce5",
   "icons": [
     {
       "src": "icon-192.png",
@@ -19,9 +19,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "display_override": [
-    "fullscreen",
-    "standalone"
   ]
 }
