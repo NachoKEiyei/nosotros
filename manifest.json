@@ -3,9 +3,9 @@
   "short_name": "Rincón",
   "start_url": "./",
   "scope": "./",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#fff5f7",
-  "theme_color": "#e58aa5",
+  "theme_color": "#fff5f7",
   "icons": [
     {
       "src": "icon-192.png",
@@ -19,5 +19,9 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "display_override": [
+    "fullscreen",
+    "standalone"
   ]
 }
