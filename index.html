@@ -41,7 +41,9 @@ a{color:var(--ac);font-weight:600}
 :root[data-theme=popfuerte]{--bg:#fff2f6;--fg:#1a1030;--mu:#6a5878;--bd:#f2a0bd;--sf:#fff;--ac:#e8175d;--ac2:#1d4ed8;--on:#fff}
 :root[data-theme=crema]{--bg:#f6eee4;--fg:#2f2218;--mu:#7d6a5a;--bd:#e3d6c4;--sf:#fffaf3;--ac:#a86c50;--ac2:#d8c3a5;--on:#fff}
 :root[data-theme=nocherosa]{--bg:#1d1424;--fg:#f6e9f1;--mu:#b9a2b8;--bd:#46304f;--sf:#2a1c33;--ac:#f08fba;--ac2:#9b7fd8;--on:#1d1424}
-:root[data-theme=oscuro],:root[data-theme=dark]{--bg:#18181a;--fg:#ececec;--mu:#9a9a9f;--bd:#34343a;--sf:#222226;--ac:#a3a3a9;--ac2:#6a6a70;--on:#18181a}
+:root[data-theme=naranja]{--bg:#fff1e4;--fg:#3b1f10;--mu:#8a5a3c;--bd:#f6cfae;--sf:#fffaf4;--ac:#d9540f;--ac2:#f2a01f;--on:#fff}
+[data-theme=verde]{--bg:#eef5ea;--fg:#1f3326;--mu:#5f7a68;--bd:#cfe0c9;--sf:#fbfef9;--ac:#2f7a4f;--ac2:#9bb83a;--on:#fff}
+[data-theme=oscuro],:root[data-theme=dark]{--bg:#18181a;--fg:#ececec;--mu:#9a9a9f;--bd:#34343a;--sf:#222226;--ac:#a3a3a9;--ac2:#6a6a70;--on:#18181a}
 html{font-size:16px}html[data-size=compacto]{font-size:14.5px}html[data-size=grande]{font-size:18px}
 body{font:1rem/1.55 'Plus Jakarta Sans',system-ui,-apple-system,"Segoe UI",sans-serif}
 h1,h2,.logo,.sec{font-weight:600;letter-spacing:-.01em}
@@ -123,7 +125,7 @@ button.dc.td{border-color:var(--ac)}button.dc.sl{background:var(--ac);color:var(
 const $=s=>document.querySelector(s),U=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const okUrl=u=>/^https:\/\//i.test(u||'')?u:'';
-const THEMES={pastel:['Pastel clásico','#e88fab','#b3a1e3'],popsuave:['Pop noventero suave','#c97a9c','#6f8fc9'],popfuerte:['Pop noventero fuerte','#e8175d','#1d4ed8'],crema:['Editorial crema','#a86c50','#d8c3a5'],nocherosa:['Noche rosa','#f08fba','#9b7fd8'],oscuro:['Modo oscuro','#5f5f63','#8f8f92']},BGS={degradado:'Degradado',liso:'Liso',estrellas:'Puntos',corazones:'Corazones'};
+const THEMES={pastel:['Pastel clásico','#e88fab','#b3a1e3'],popsuave:['Pop noventero suave','#c97a9c','#6f8fc9'],popfuerte:['Pop noventero fuerte','#e8175d','#1d4ed8'],crema:['Editorial crema','#a86c50','#d8c3a5'],nocherosa:['Noche rosa','#f08fba','#9b7fd8'],naranja:['Naranja atardecer','#d9540f','#f2a01f'],verde:['Verde bosque','#2f7a4f','#9bb83a'],oscuro:['Modo oscuro','#5f5f63','#8f8f92']},BGS={degradado:'Degradado',liso:'Liso',estrellas:'Puntos',corazones:'Corazones'};
 const BASE=[
  {id:'b-pag',emoji:'🎂',title:'Feliz cumpleaños',desc:'Sorpresa de cumpleaños: estrella, cartas, fotos, certificado y juego',url:'https://nachokeiyei.github.io/pag/',base:1},
  {id:'b-love',emoji:'💗',title:'¿Me amas?',desc:'Mensaje de aniversario con contador de días juntos',url:'https://nachokeiyei.github.io/love/',base:1},
