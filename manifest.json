@@ -1,6 +1,6 @@
 {
-  "name": "Nuestro rincón",
-  "short_name": "Rincón",
+  "name": "Nosotros",
+  "short_name": "Nosotros",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
